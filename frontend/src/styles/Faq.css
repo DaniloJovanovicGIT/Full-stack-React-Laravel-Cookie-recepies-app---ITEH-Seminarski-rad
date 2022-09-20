@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+.faq-section {
+  background-image: url("../images/faq.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+#header h1 {
+  margin-top: 35px;
+  margin-bottom: 20px;
+  font-size: 35px;
+  color: #4e008a;
+}
+.containerFAQ {
+  width: 100%;
+  max-width: 45rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  margin-bottom: 80px;
+  margin-top: 30px;
+}
+
+.accordion-item {
+  background-color: rgb(255, 255, 255, 0.3) !important;
+  border-radius: 0.2rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+}
+
+.accordion-link {
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+  font-size: 1.4rem;
+  color: #4e008a  !important;
+  text-decoration: none;
+  background-color: rgb(255, 255, 255, 0.3) !important;
+  width: 100%;
+  display: flex;
+}
+
+.accordion-link i {
+  color: #4e008a  !important;
+  padding: 0.3rem;
+}
+
+.accordion-link .ion-md-remove {
+  display: none;
+}
+
+.answer {
+  max-height: 0;
+  overflow: hidden;
+  position: center;
+  background-color: rgb(255, 255, 255, 0.3) !important;
+  align-items: center;
+  transition: max-height 950ms;
+}
+
+.answer::before {
+  content: "";
+  position: absolute;
+  width: 0.7rem;
+  height: 90%;
+  background-color: rgb(255, 255, 255, 0.3) !important;
+  top: 5%;
+  left: 0;
+  transform: translate(50%);
+}
+
+.answer p {
+  color: #4e008a !important;
+  font-size: 1.4rem;
+  padding: 2rem;
+}
+
+/* ovo je za click event */
+.accordion-item:target .answer {
+  max-height: 20rem;
+
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+}

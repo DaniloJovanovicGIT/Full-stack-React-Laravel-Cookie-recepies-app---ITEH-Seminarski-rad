@@ -1,0 +1,127 @@
+name: Authentication
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - POST
+    uri: api/register
+    metadata:
+      title: 'Creating new account'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: zzeyvbdvpdknqlnmupspchxiixtjvjbenjldqnhpwxnvtthkolianyqhslszjqiqiknwexahugopawrvchxkwgybgbskbyhwejqaokcjikcauftprpwmbdplmhkaiphfqumkfjfrepvnxplhhbtqxkbbqwwdeimstvhpvbmabsfguaasltceipvahtctkawdyhdxuqezlxwngliwzrccbzcjjcyrtrafun
+        type: string
+        custom: []
+      lastname:
+        name: lastname
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: ocseagaioivdcxncudbnyfebpwuydlorxokmhmdkpbetuivjwvwr
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        required: true
+        example: iuutxefhwaemesvqmgpidzeaekgugnmehspgjmgzbyhzjgogfyqotkpynfgwadehcqzdacniijxgmqgruhwdzywtghzevbgqxkfvqzntmifvciudtfhwijgjplhldjpahroyptpwlcavmrodndljwmbsovcyrliyvbtmbauikorjbcmprflcsyyefghslugykqbjxepgmppourwjjaclpffuwfumqwd
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'Must be at least 5 characters.'
+        required: true
+        example: ''
+        type: string
+        custom: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      title: 'Login on application'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/register-bez-tokena
+    metadata:
+      title: 'Creating new account without getting access token'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: jlwcyrdjusfniowbgcrcutnifvxisqkzlncjqyuermreawinkbceqojwcreeoebiregqjersideuldfaxrfmpvbkdudaaclijzbuubmzyengymiqgtcnqjyrbqhjojvuakbvrsense
+        type: string
+        custom: []
+      lastname:
+        name: lastname
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: nzhvrgugqxdgwpyqgufenzxkquqpxznrevahhvgsppxpuaczd
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        required: true
+        example: fbkilkbgafhidprkwkjxykmdagoheothcnksqiirxjaqgbsjqifctztbepvyqpcewdqdlbichmbzxcpzuqjyubojybkqgomrrkbspkkwqiigspvxuhhpjbh
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'Must be at least 5 characters.'
+        required: true
+        example: weo
+        type: string
+        custom: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/logout
+    metadata:
+      title: Logout
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []

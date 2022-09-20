@@ -1,0 +1,1941 @@
+openapi: 3.0.3
+info:
+  title: 'Coffe blog API'
+  description: 'Coffee blog prestavlja blog koji je posvecen ljubiteljima kafe. Ovde je moguce procitati i objavljivati clanke vezane za kafu.'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/register:
+    post:
+      summary: 'Creating new account'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: zzeyvbdvpdknqlnmupspchxiixtjvjbenjldqnhpwxnvtthkolianyqhslszjqiqiknwexahugopawrvchxkwgybgbskbyhwejqaokcjikcauftprpwmbdplmhkaiphfqumkfjfrepvnxplhhbtqxkbbqwwdeimstvhpvbmabsfguaasltceipvahtctkawdyhdxuqezlxwngliwzrccbzcjjcyrtrafun
+                lastname:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: ocseagaioivdcxncudbnyfebpwuydlorxokmhmdkpbetuivjwvwr
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: iuutxefhwaemesvqmgpidzeaekgugnmehspgjmgzbyhzjgogfyqotkpynfgwadehcqzdacniijxgmqgruhwdzywtghzevbgqxkfvqzntmifvciudtfhwijgjplhldjpahroyptpwlcavmrodndljwmbsovcyrliyvbtmbauikorjbcmprflcsyyefghslugykqbjxepgmppourwjjaclpffuwfumqwd
+                password:
+                  type: string
+                  description: 'Must be at least 5 characters.'
+                  example: ''
+              required:
+                - name
+                - lastname
+                - email
+                - password
+      security: []
+  /api/login:
+    post:
+      summary: 'Login on application'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Authentication
+      security: []
+  /api/register-bez-tokena:
+    post:
+      summary: 'Creating new account without getting access token'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: jlwcyrdjusfniowbgcrcutnifvxisqkzlncjqyuermreawinkbceqojwcreeoebiregqjersideuldfaxrfmpvbkdudaaclijzbuubmzyengymiqgtcnqjyrbqhjojvuakbvrsense
+                lastname:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: nzhvrgugqxdgwpyqgufenzxkquqpxznrevahhvgsppxpuaczd
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must not be greater than 255 characters.'
+                  example: fbkilkbgafhidprkwkjxykmdagoheothcnksqiirxjaqgbsjqifctztbepvyqpcewdqdlbichmbzxcpzuqjyubojybkqgomrrkbspkkwqiigspvxuhhpjbh
+                password:
+                  type: string
+                  description: 'Must be at least 5 characters.'
+                  example: weo
+              required:
+                - name
+                - lastname
+                - email
+                - password
+      security: []
+  /api/logout:
+    post:
+      summary: Logout
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Authentication
+      security: []
+  /api/coffee:
+    get:
+      summary: 'Display a listing of all coffees.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  coffees:
+                    -
+                      id: 1
+                      coffee_name: Kafa1
+                      coffee_sort: kafa1
+                      country_origin: Srbija
+                      description: 'kratak opis'
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:35:47.000000Z'
+                      updated_at: '2022-06-16T19:35:47.000000Z'
+                properties:
+                  coffees:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        coffee_name: Kafa1
+                        coffee_sort: kafa1
+                        country_origin: Srbija
+                        description: 'kratak opis'
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:35:47.000000Z'
+                        updated_at: '2022-06-16T19:35:47.000000Z'
+                    items:
+                      type: object
+      tags:
+        - Coffee
+      security: []
+    post:
+      summary: 'Store a newly created coffee in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Coffee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                coffee_name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: ipknxuvgnlvzupjntmzyutpfcvkjcvzqjbqneyvkdtlhxifmzlnxlnqunzwokinjmycxflebqpwevecvfssgehnzvqenqcjzntrjtjvzytpxdrrmanfausnysrycwgscwgkrdnmjfmbswlpkjpeafzsgkrimjtudzleflzifhqscbwaenuzprqozrrndahndbrgqezpsqhruqvjanjphgblixfxzrusbfrnhmjwfpl
+                coffee_sort:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: fqzbefxbdblmgokvbssswkavxrlxfposkjgxjpzthvwcfrfoobqusfganbejhdsoxidkqlcqwjlbfbndjgjwntgwmdlehdcjsmhmdasqwkkgwgnakdpaelqwvgzlkdxtrnrgkufmdhfmeplgdqusxybeguendtqwedfnateahh
+                country_origin:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: ppaomtovmbxexxljvnhpdbyqsprxhpzsvqkmmnwqdtogfsphlinlodmkcsljctmllkafzrbcpeuqlfaevijclkwotgkemsgmysvkxidwmlrymivh
+                description:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: zwffikaxdoeajluagwmxzflgjfenkvpgmpapvayphqtbnhfalvjzcvedcknkbrshzzpvfjwgijbogxrpdjlijuezlyad
+              required:
+                - coffee_name
+                - coffee_sort
+                - country_origin
+      security: []
+  '/api/coffee/{id}':
+    get:
+      summary: 'Display the specified coffee.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  coffee:
+                    id: 1
+                    coffee_name: Kafa1
+                    coffee_sort: kafa1
+                    country_origin: Srbija
+                    description: 'kratak opis'
+                    user_id:
+                      id: 1
+                      name: Admin
+                      lastname: Admin
+                      email: admin@admin.com
+                      user_role_id:
+                        id: 1
+                        role_name: Administrator
+                        role_slug: admin
+                        role_capability: 1
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-14T20:12:54.000000Z'
+                      updated_at: '2022-06-14T20:12:54.000000Z'
+                    created_at: '2022-06-16T19:35:47.000000Z'
+                    updated_at: '2022-06-16T19:35:47.000000Z'
+                properties:
+                  coffee:
+                    type: object
+                    example:
+                      id: 1
+                      coffee_name: Kafa1
+                      coffee_sort: kafa1
+                      country_origin: Srbija
+                      description: 'kratak opis'
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:35:47.000000Z'
+                      updated_at: '2022-06-16T19:35:47.000000Z'
+      tags:
+        - Coffee
+      security: []
+    put:
+      summary: 'Update the specified coffee in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Coffee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                coffee_name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: ygoeoihnhzlthnpiboiuzzffzvpbgbycwnvttphgjtotemvlmbqiqcowgadzseyzfuztylfecwsvkseuwquiraezsjyeculnpksulkccbscnwyakhgzmfhziopzsnvxqalvkpnoyumwilzknffjogqgxtopshiwdow
+                coffee_sort:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: ixwdhlinhcnxciqlenxxqbfqpqbewiilpcjrolzlxdmydlcnvdgttahvmmraqonlrvqtjzngmftlhlkwwpqzgehhovzstvgqcfnkwvhuiacxyiwwlkaexemnjku
+                country_origin:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: smqfghfbybnezuunlpbxbzmfwucgukufemvuehmkmgcxqujtwqpqgjevwjlwkuiijlaxhstkjaqpnrqrlxhyqetzcjnxlqznjlagflqzevmsnkrznhmpgnyjaypadumoatnhmjphbsgqujjhxqvmtjiillagdocngrsqgkiiobwuuzjsoetixsqixqywvhtyadiqdeyywpksfasyrixijvfxremtpkzgxwzsfzkhmvtdboxqae
+                description:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: xlfdaadjfvaooamhzofmbqhzacynwwompytnevvjjpeaohdcoclwiiaaoourkgmzcetyadhcykpclrkhcjzuiitoltnzplsbqkivoisjrxggqdnsvatlsboyeeslyoawr
+              required:
+                - coffee_name
+                - coffee_sort
+                - country_origin
+      security: []
+    delete:
+      summary: 'Remove the specified coffee from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Coffee
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the coffee.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/coffee-post-comment:
+    get:
+      summary: 'Display a listing of all comments.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  Coffee_post_comments:
+                    -
+                      id: 1
+                      comment_content: 'komentarisan ...'
+                      post_id:
+                        id: 1
+                        title: 'Naslov 1i'
+                        post_content: 'opis opis'
+                        category_id:
+                          id: 1
+                          name: General
+                          slug: general
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        coffee_id: null
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:34:46.000000Z'
+                        updated_at: '2022-06-16T19:35:05.000000Z'
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:37:33.000000Z'
+                      updated_at: '2022-06-16T19:37:33.000000Z'
+                properties:
+                  Coffee_post_comments:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        comment_content: 'komentarisan ...'
+                        post_id:
+                          id: 1
+                          title: 'Naslov 1i'
+                          post_content: 'opis opis'
+                          category_id:
+                            id: 1
+                            name: General
+                            slug: general
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          coffee_id: null
+                          user_id:
+                            id: 1
+                            name: Admin
+                            lastname: Admin
+                            email: admin@admin.com
+                            user_role_id:
+                              id: 1
+                              role_name: Administrator
+                              role_slug: admin
+                              role_capability: 1
+                              created_at: '2022-06-14T20:12:54.000000Z'
+                              updated_at: '2022-06-14T20:12:54.000000Z'
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-16T19:34:46.000000Z'
+                          updated_at: '2022-06-16T19:35:05.000000Z'
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:37:33.000000Z'
+                        updated_at: '2022-06-16T19:37:33.000000Z'
+                    items:
+                      type: object
+      tags:
+        - Comments
+      security: []
+    post:
+      summary: 'Store a newly created comment in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Comments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                comment_content:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: ivyjtkvtwwwblbtutydmzdeukyoudekcagtnnczejxcsrdenhdabxbfddcnyhajdbjumnsswrwwvnlhcwvgndejecfqcbxxjwdywlqxqwbgsaalvcjrgrzqhkkayrbrsoetirywgccosiqchwhizzygfswurcnlbrjhetzfnqhjektodtourfgvqovjajsxbwegbfcflwqts
+                post_id:
+                  type: integer
+                  description: ''
+                  example: 7
+              required:
+                - comment_content
+                - post_id
+      security: []
+  '/api/coffee-post-comment/{id}':
+    get:
+      summary: 'Display the specified resource.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  Coffee_post_comment:
+                    id: 1
+                    comment_content: 'komentarisan ...'
+                    post_id:
+                      id: 1
+                      title: 'Naslov 1i'
+                      post_content: 'opis opis'
+                      category_id:
+                        id: 1
+                        name: General
+                        slug: general
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      coffee_id: null
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:34:46.000000Z'
+                      updated_at: '2022-06-16T19:35:05.000000Z'
+                    user_id:
+                      id: 1
+                      name: Admin
+                      lastname: Admin
+                      email: admin@admin.com
+                      user_role_id:
+                        id: 1
+                        role_name: Administrator
+                        role_slug: admin
+                        role_capability: 1
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-14T20:12:54.000000Z'
+                      updated_at: '2022-06-14T20:12:54.000000Z'
+                    created_at: '2022-06-16T19:37:33.000000Z'
+                    updated_at: '2022-06-16T19:37:33.000000Z'
+                properties:
+                  Coffee_post_comment:
+                    type: object
+                    example:
+                      id: 1
+                      comment_content: 'komentarisan ...'
+                      post_id:
+                        id: 1
+                        title: 'Naslov 1i'
+                        post_content: 'opis opis'
+                        category_id:
+                          id: 1
+                          name: General
+                          slug: general
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        coffee_id: null
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:34:46.000000Z'
+                        updated_at: '2022-06-16T19:35:05.000000Z'
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:37:33.000000Z'
+                      updated_at: '2022-06-16T19:37:33.000000Z'
+      tags:
+        - Comments
+      security: []
+    delete:
+      summary: 'Remove the specified comment from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Comments
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the coffee post comment.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/coffee-post-newest:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  posts:
+                    -
+                      id: 1
+                      title: 'Naslov 1i'
+                      post_content: 'opis opis'
+                      category_id:
+                        id: 1
+                        name: General
+                        slug: general
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      coffee_id: null
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:34:46.000000Z'
+                      updated_at: '2022-06-16T19:35:05.000000Z'
+                    -
+                      id: 2
+                      title: 'Naslov 2'
+                      post_content: adasdad
+                      category_id:
+                        id: 2
+                        name: Kategorija
+                        slug: kategorija
+                        created_at: '2022-06-16T19:36:05.000000Z'
+                        updated_at: '2022-06-16T19:36:05.000000Z'
+                      coffee_id: null
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:35:21.000000Z'
+                      updated_at: '2022-06-16T19:36:24.000000Z'
+                properties:
+                  posts:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        title: 'Naslov 1i'
+                        post_content: 'opis opis'
+                        category_id:
+                          id: 1
+                          name: General
+                          slug: general
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        coffee_id: null
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:34:46.000000Z'
+                        updated_at: '2022-06-16T19:35:05.000000Z'
+                      -
+                        id: 2
+                        title: 'Naslov 2'
+                        post_content: adasdad
+                        category_id:
+                          id: 2
+                          name: Kategorija
+                          slug: kategorija
+                          created_at: '2022-06-16T19:36:05.000000Z'
+                          updated_at: '2022-06-16T19:36:05.000000Z'
+                        coffee_id: null
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:35:21.000000Z'
+                        updated_at: '2022-06-16T19:36:24.000000Z'
+                    items:
+                      type: object
+      tags:
+        - Endpoints
+      security: []
+  /api/profile:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/category:
+    get:
+      summary: 'Display a listing of all categories.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  categories:
+                    -
+                      id: 1
+                      name: General
+                      slug: general
+                      created_at: '2022-06-14T20:12:54.000000Z'
+                      updated_at: '2022-06-14T20:12:54.000000Z'
+                    -
+                      id: 2
+                      name: Kategorija
+                      slug: kategorija
+                      created_at: '2022-06-16T19:36:05.000000Z'
+                      updated_at: '2022-06-16T19:36:05.000000Z'
+                properties:
+                  categories:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: General
+                        slug: general
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      -
+                        id: 2
+                        name: Kategorija
+                        slug: kategorija
+                        created_at: '2022-06-16T19:36:05.000000Z'
+                        updated_at: '2022-06-16T19:36:05.000000Z'
+                    items:
+                      type: object
+      tags:
+        - Kategorije
+      security: []
+    post:
+      summary: 'Store a newly created category in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Kategorije
+      security: []
+  '/api/category/{id}':
+    get:
+      summary: 'Display the specified category.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  categorY:
+                    id: 1
+                    name: General
+                    slug: general
+                    created_at: '2022-06-14T20:12:54.000000Z'
+                    updated_at: '2022-06-14T20:12:54.000000Z'
+                properties:
+                  categorY:
+                    type: object
+                    example:
+                      id: 1
+                      name: General
+                      slug: general
+                      created_at: '2022-06-14T20:12:54.000000Z'
+                      updated_at: '2022-06-14T20:12:54.000000Z'
+      tags:
+        - Kategorije
+      security: []
+    delete:
+      summary: 'Remove the specified category from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Kategorije
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the category.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/coffee-post:
+    get:
+      summary: 'Display a listing of all CoffePosts.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  posts:
+                    -
+                      id: 1
+                      title: 'Naslov 1i'
+                      post_content: 'opis opis'
+                      category_id:
+                        id: 1
+                        name: General
+                        slug: general
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      coffee_id: null
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:34:46.000000Z'
+                      updated_at: '2022-06-16T19:35:05.000000Z'
+                    -
+                      id: 2
+                      title: 'Naslov 2'
+                      post_content: adasdad
+                      category_id:
+                        id: 2
+                        name: Kategorija
+                        slug: kategorija
+                        created_at: '2022-06-16T19:36:05.000000Z'
+                        updated_at: '2022-06-16T19:36:05.000000Z'
+                      coffee_id: null
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:35:21.000000Z'
+                      updated_at: '2022-06-16T19:36:24.000000Z'
+                properties:
+                  posts:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        title: 'Naslov 1i'
+                        post_content: 'opis opis'
+                        category_id:
+                          id: 1
+                          name: General
+                          slug: general
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        coffee_id: null
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:34:46.000000Z'
+                        updated_at: '2022-06-16T19:35:05.000000Z'
+                      -
+                        id: 2
+                        title: 'Naslov 2'
+                        post_content: adasdad
+                        category_id:
+                          id: 2
+                          name: Kategorija
+                          slug: kategorija
+                          created_at: '2022-06-16T19:36:05.000000Z'
+                          updated_at: '2022-06-16T19:36:05.000000Z'
+                        coffee_id: null
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:35:21.000000Z'
+                        updated_at: '2022-06-16T19:36:24.000000Z'
+                    items:
+                      type: object
+      tags:
+        - Posts
+      security: []
+    post:
+      summary: 'Store a newly created CoffePost in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: emladxvduwfmkxidws
+                post_content:
+                  type: string
+                  description: ''
+                  example: aut
+                category_id:
+                  type: integer
+                  description: ''
+                  example: 10
+                coffee_id:
+                  type: integer
+                  description: ''
+                  example: 2
+              required:
+                - title
+                - post_content
+                - category_id
+      security: []
+  '/api/coffee-post/{id}':
+    get:
+      summary: 'Display the specified CoffePost.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  post:
+                    id: 1
+                    title: 'Naslov 1i'
+                    post_content: 'opis opis'
+                    category_id:
+                      id: 1
+                      name: General
+                      slug: general
+                      created_at: '2022-06-14T20:12:54.000000Z'
+                      updated_at: '2022-06-14T20:12:54.000000Z'
+                    coffee_id: null
+                    user_id:
+                      id: 1
+                      name: Admin
+                      lastname: Admin
+                      email: admin@admin.com
+                      user_role_id:
+                        id: 1
+                        role_name: Administrator
+                        role_slug: admin
+                        role_capability: 1
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-14T20:12:54.000000Z'
+                      updated_at: '2022-06-14T20:12:54.000000Z'
+                    created_at: '2022-06-16T19:34:46.000000Z'
+                    updated_at: '2022-06-16T19:35:05.000000Z'
+                  comments:
+                    -
+                      id: 1
+                      comment_content: 'komentarisan ...'
+                      post_id:
+                        id: 1
+                        title: 'Naslov 1i'
+                        post_content: 'opis opis'
+                        category_id:
+                          id: 1
+                          name: General
+                          slug: general
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        coffee_id: null
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:34:46.000000Z'
+                        updated_at: '2022-06-16T19:35:05.000000Z'
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:37:33.000000Z'
+                      updated_at: '2022-06-16T19:37:33.000000Z'
+                properties:
+                  post:
+                    type: object
+                    example:
+                      id: 1
+                      title: 'Naslov 1i'
+                      post_content: 'opis opis'
+                      category_id:
+                        id: 1
+                        name: General
+                        slug: general
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      coffee_id: null
+                      user_id:
+                        id: 1
+                        name: Admin
+                        lastname: Admin
+                        email: admin@admin.com
+                        user_role_id:
+                          id: 1
+                          role_name: Administrator
+                          role_slug: admin
+                          role_capability: 1
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-14T20:12:54.000000Z'
+                        updated_at: '2022-06-14T20:12:54.000000Z'
+                      created_at: '2022-06-16T19:34:46.000000Z'
+                      updated_at: '2022-06-16T19:35:05.000000Z'
+                  comments:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        comment_content: 'komentarisan ...'
+                        post_id:
+                          id: 1
+                          title: 'Naslov 1i'
+                          post_content: 'opis opis'
+                          category_id:
+                            id: 1
+                            name: General
+                            slug: general
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          coffee_id: null
+                          user_id:
+                            id: 1
+                            name: Admin
+                            lastname: Admin
+                            email: admin@admin.com
+                            user_role_id:
+                              id: 1
+                              role_name: Administrator
+                              role_slug: admin
+                              role_capability: 1
+                              created_at: '2022-06-14T20:12:54.000000Z'
+                              updated_at: '2022-06-14T20:12:54.000000Z'
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-16T19:34:46.000000Z'
+                          updated_at: '2022-06-16T19:35:05.000000Z'
+                        user_id:
+                          id: 1
+                          name: Admin
+                          lastname: Admin
+                          email: admin@admin.com
+                          user_role_id:
+                            id: 1
+                            role_name: Administrator
+                            role_slug: admin
+                            role_capability: 1
+                            created_at: '2022-06-14T20:12:54.000000Z'
+                            updated_at: '2022-06-14T20:12:54.000000Z'
+                          created_at: '2022-06-14T20:12:54.000000Z'
+                          updated_at: '2022-06-14T20:12:54.000000Z'
+                        created_at: '2022-06-16T19:37:33.000000Z'
+                        updated_at: '2022-06-16T19:37:33.000000Z'
+                    items:
+                      type: object
+      tags:
+        - Posts
+      security: []
+    put:
+      summary: 'Update the specified post in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Posts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: givofhhxrqfxigmapqllbnxunnrnbyolecsxpffhadukctbegohwtjuklgqdzqntqhwjradnaemgbgngbsxsvtnoiroajk
+                post_content:
+                  type: string
+                  description: ''
+                  example: nostrum
+                category_id:
+                  type: string
+                  description: ''
+                  example: officiis
+                coffee_id:
+                  type: integer
+                  description: ''
+                  example: 9
+              required:
+                - title
+                - post_content
+                - category_id
+      security: []
+    delete:
+      summary: 'Remove the specified post from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Posts
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the coffee post.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/get-admin-statistics:
+    get:
+      summary: "Getting detailed statistics for admin page.\nThis route recognize content type header and returns json or xml."
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Statistics
+      security: []
+  /api/get-report:
+    get:
+      summary: 'Getting overall report for our blog in Excel file.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Statistics
+      security: []
+  /api/user:
+    get:
+      summary: 'Display a listing of the all Users. Need to be logged in.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - User
+      security: []
+  '/api/user/{id}':
+    get:
+      summary: 'Gettomg data of specified User.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - User
+      security: []
+    put:
+      summary: 'Update the specified User.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: igxzrbjmuijrqyqcqetqppnztpeoxyhsirpzsiptzbqhnntsrtfybphwdnuppsryhyifypswlpflzrgiazuscbarxwoucsxdxbvimwydpleiqzqobpmwshvnneikmlappkmkrzvognlgibmavqrptmbkosjrcztvuxwuwdutwbsyvswtbeumvkgubnpcwhpaxzmdxapfhakisqphcwvwmprrqzywhgupyzfmfmhxqjxycjmairy
+                lastname:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: fdphfpfbgbirskyxjfinzijhhbrfazqbafzpzbdxjfhqyxfkwapxojutanaenwcgdcxji
+                email:
+                  type: string
+                  description: ''
+                  example: null
+                password:
+                  type: string
+                  description: 'Must be at least 5 characters.'
+                  example: ''
+                user_role_id:
+                  type: string
+                  description: ''
+                  example: null
+              required:
+                - name
+                - lastname
+      security: []
+    delete:
+      summary: 'Remove the specified User from database.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - User
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the user.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+  /api/user-role:
+    post:
+      summary: 'Store a newly created UserRole'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - User
+      security: []
+    get:
+      summary: 'Display a listing of all UserRoles'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - UserRole
+      security: []
+  '/api/user-role/{id}':
+    get:
+      summary: 'Display the specified UserRole using provided id.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - User
+      security: []
+    delete:
+      summary: 'Remove the specified UserRole from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - User
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the user role.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Authentication
+    description: ''
+  -
+    name: Coffee
+    description: ''
+  -
+    name: Comments
+    description: ''
+  -
+    name: Endpoints
+    description: ''
+  -
+    name: Kategorije
+    description: ''
+  -
+    name: Posts
+    description: ''
+  -
+    name: Statistics
+    description: ''
+  -
+    name: User
+    description: ''
+  -
+    name: UserRole
+    description: ''

@@ -1,0 +1,158 @@
+.ContactPage {
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  border: none;
+}
+.containerContact {
+  background-image: url("../images/contact1.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  position: center;
+  background-repeat: no-repeat;
+}
+.header {
+  position: center;
+  text-align: center;
+
+  top: 2rem;
+}
+.header h1 {
+  font-size: 35px;
+  padding-top: 20px;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  min-height: 110vh;
+}
+.content div {
+  margin-top: 6vh;
+  margin-left: 20vh;
+  width: 340px;
+}
+.content-form {
+  margin-top: 7rem;
+  margin-left: 100px;
+  align-items: center;
+}
+.content-form div h2 {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+h2 {
+  padding-left: 110px;
+  margin-top: 50px;
+}
+.content-form h2:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+.content-form div h2 p {
+  font-size: 14px;
+  font-weight: lighter;
+  margin-left: 40px;
+}
+.contact-form input {
+  border-radius: 1%;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+  text-align: center;
+}
+.form {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 50%;
+  justify-content: center;
+  align-items: center;
+  min-height: 110vh;
+}
+
+.form .contact-form input {
+  width: 30rem;
+  background-color: transparent;
+  border: 0px;
+  border: transparent;
+  margin: 20px;
+  padding: 10px;
+  font-size: 18px;
+  border-bottom: 2px solid #fff;
+}
+.form .contact-form input ~ .spand {
+  position: absolute;
+  left: 20px;
+  transition: 0.9s ease-in-out;
+  margin-top: 10px;
+}
+.form .contact-form input:focus ~ .spand {
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+.form .contact-form textarea {
+  width: 30rem;
+  border: 0px;
+  background-color: transparent;
+  margin: 20px;
+  font-size: 17px;
+  border-bottom: 2px solid white;
+}
+.form .contact-form textarea ~ .spand {
+  position: absolute;
+  left: 20px;
+  margin-top: 10px;
+  transition: 0.9s ease-in-out;
+}
+.form .contact-form textarea:focus ~ .spand {
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+.form .contact-form button {
+  font-size: 18px;
+  margin-left: 25px;
+  width: 90%;
+  height: 40px;
+  margin-top: -5px;
+}
+.form .contact-form button:hover {
+  background-color: transparent;
+  color: black;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 900px) {
+  body {
+    background-repeat: repeat-y;
+    overflow: auto;
+  }
+  header {
+    position: absolute;
+    left: 0;
+    top: 20%;
+    width: 100%;
+  }
+
+  .form {
+    position: absolute;
+    top: 100vh;
+    margin-left: 10%;
+  }
+  .content-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0;
+    margin-top: 53vh;
+    margin-left: 10vh;
+  }
+  .content section {
+    margin-top: 0vh;
+    margin-left: 0vh;
+  }
+}

@@ -1,0 +1,186 @@
+name: Coffee
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/coffee
+    metadata:
+      title: 'Display a listing of all coffees.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"coffees":[{"id":1,"coffee_name":"Kafa1","coffee_sort":"kafa1","country_origin":"Srbija","description":"kratak opis","user_id":{"id":1,"name":"Admin","lastname":"Admin","email":"admin@admin.com","user_role_id":{"id":1,"role_name":"Administrator","role_slug":"admin","role_capability":1,"created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"created_at":"2022-06-16T19:35:47.000000Z","updated_at":"2022-06-16T19:35:47.000000Z"}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '57'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/coffee/{id}'
+    metadata:
+      title: 'Display the specified coffee.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the coffee.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"coffee":{"id":1,"coffee_name":"Kafa1","coffee_sort":"kafa1","country_origin":"Srbija","description":"kratak opis","user_id":{"id":1,"name":"Admin","lastname":"Admin","email":"admin@admin.com","user_role_id":{"id":1,"role_name":"Administrator","role_slug":"admin","role_capability":1,"created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"created_at":"2022-06-16T19:35:47.000000Z","updated_at":"2022-06-16T19:35:47.000000Z"}}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '56'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/coffee
+    metadata:
+      title: 'Store a newly created coffee in storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      coffee_name:
+        name: coffee_name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: ipknxuvgnlvzupjntmzyutpfcvkjcvzqjbqneyvkdtlhxifmzlnxlnqunzwokinjmycxflebqpwevecvfssgehnzvqenqcjzntrjtjvzytpxdrrmanfausnysrycwgscwgkrdnmjfmbswlpkjpeafzsgkrimjtudzleflzifhqscbwaenuzprqozrrndahndbrgqezpsqhruqvjanjphgblixfxzrusbfrnhmjwfpl
+        type: string
+        custom: []
+      coffee_sort:
+        name: coffee_sort
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: fqzbefxbdblmgokvbssswkavxrlxfposkjgxjpzthvwcfrfoobqusfganbejhdsoxidkqlcqwjlbfbndjgjwntgwmdlehdcjsmhmdasqwkkgwgnakdpaelqwvgzlkdxtrnrgkufmdhfmeplgdqusxybeguendtqwedfnateahh
+        type: string
+        custom: []
+      country_origin:
+        name: country_origin
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: ppaomtovmbxexxljvnhpdbyqsprxhpzsvqkmmnwqdtogfsphlinlodmkcsljctmllkafzrbcpeuqlfaevijclkwotgkemsgmysvkxidwmlrymivh
+        type: string
+        custom: []
+      description:
+        name: description
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: zwffikaxdoeajluagwmxzflgjfenkvpgmpapvayphqtbnhfalvjzcvedcknkbrshzzpvfjwgijbogxrpdjlijuezlyad
+        type: string
+        custom: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/coffee/{id}'
+    metadata:
+      title: 'Update the specified coffee in storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the coffee.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters:
+      coffee_name:
+        name: coffee_name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: ygoeoihnhzlthnpiboiuzzffzvpbgbycwnvttphgjtotemvlmbqiqcowgadzseyzfuztylfecwsvkseuwquiraezsjyeculnpksulkccbscnwyakhgzmfhziopzsnvxqalvkpnoyumwilzknffjogqgxtopshiwdow
+        type: string
+        custom: []
+      coffee_sort:
+        name: coffee_sort
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: ixwdhlinhcnxciqlenxxqbfqpqbewiilpcjrolzlxdmydlcnvdgttahvmmraqonlrvqtjzngmftlhlkwwpqzgehhovzstvgqcfnkwvhuiacxyiwwlkaexemnjku
+        type: string
+        custom: []
+      country_origin:
+        name: country_origin
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: smqfghfbybnezuunlpbxbzmfwucgukufemvuehmkmgcxqujtwqpqgjevwjlwkuiijlaxhstkjaqpnrqrlxhyqetzcjnxlqznjlagflqzevmsnkrznhmpgnyjaypadumoatnhmjphbsgqujjhxqvmtjiillagdocngrsqgkiiobwuuzjsoetixsqixqywvhtyadiqdeyywpksfasyrixijvfxremtpkzgxwzsfzkhmvtdboxqae
+        type: string
+        custom: []
+      description:
+        name: description
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: xlfdaadjfvaooamhzofmbqhzacynwwompytnevvjjpeaohdcoclwiiaaoourkgmzcetyadhcykpclrkhcjzuiitoltnzplsbqkivoisjrxggqdnsvatlsboyeeslyoawr
+        type: string
+        custom: []
+    responses: []
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/coffee/{id}'
+    metadata:
+      title: 'Remove the specified coffee from storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the coffee.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters: []
+    responses: []
+    responseFields: []

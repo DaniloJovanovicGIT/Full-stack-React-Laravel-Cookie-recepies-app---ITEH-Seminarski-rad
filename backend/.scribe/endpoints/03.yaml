@@ -1,0 +1,55 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/coffee-post-newest
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"posts":[{"id":1,"title":"Naslov 1i","post_content":"opis opis","category_id":{"id":1,"name":"General","slug":"general","created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"coffee_id":null,"user_id":{"id":1,"name":"Admin","lastname":"Admin","email":"admin@admin.com","user_role_id":{"id":1,"role_name":"Administrator","role_slug":"admin","role_capability":1,"created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"created_at":"2022-06-16T19:34:46.000000Z","updated_at":"2022-06-16T19:35:05.000000Z"},{"id":2,"title":"Naslov 2","post_content":"adasdad","category_id":{"id":2,"name":"Kategorija","slug":"kategorija","created_at":"2022-06-16T19:36:05.000000Z","updated_at":"2022-06-16T19:36:05.000000Z"},"coffee_id":null,"user_id":{"id":1,"name":"Admin","lastname":"Admin","email":"admin@admin.com","user_role_id":{"id":1,"role_name":"Administrator","role_slug":"admin","role_capability":1,"created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"created_at":"2022-06-14T20:12:54.000000Z","updated_at":"2022-06-14T20:12:54.000000Z"},"created_at":"2022-06-16T19:35:21.000000Z","updated_at":"2022-06-16T19:36:24.000000Z"}]}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          x-ratelimit-limit: '60'
+          x-ratelimit-remaining: '51'
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: api/profile
+    metadata:
+      title: ''
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []

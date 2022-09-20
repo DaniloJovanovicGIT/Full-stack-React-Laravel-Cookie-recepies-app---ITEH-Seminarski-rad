@@ -1,0 +1,3953 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Coffe blog API</title>
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
+    <link rel="stylesheet" href="../docs/css/theme-default.print.css" media="print">
+
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/@highlightjs/cdn-assets@10.7.2/styles/obsidian.min.css">
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@10.7.2/highlight.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jets/0.14.1/jets.min.js"></script>
+
+    <style id="language-style">
+        /* starts out as display none and is replaced with js later  */
+                    body .content .javascript-example code { display: none; }
+            </style>
+
+    <script>
+        var baseUrl = "http://localhost";
+        var useCsrf = Boolean();
+        var csrfUrl = "/sanctum/csrf-cookie";
+    </script>
+    <script src="../docs/js/tryitout-3.33.0.js"></script>
+
+    <script src="../docs/js/theme-default-3.33.0.js"></script>
+
+</head>
+
+<body data-languages="[&quot;javascript&quot;]">
+
+<a href="#" id="nav-button">
+    <span>
+        MENU
+        <img src="../docs/images/navbar.png" alt="navbar-image" />
+    </span>
+</a>
+<div class="tocify-wrapper">
+    
+            <div class="lang-selector">
+                                            <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
+                    </div>
+    
+    <div class="search">
+        <input type="text" class="search" id="input-search" placeholder="Search">
+    </div>
+
+    <div id="toc">
+                                                                            <ul id="tocify-header-0" class="tocify-header">
+                    <li class="tocify-item level-1" data-unique="introduction">
+                        <a href="#introduction">Introduction</a>
+                    </li>
+                                            
+                                                </ul>
+                    
+                    <ul id="tocify-header-1" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="authentication">
+                    <a href="#authentication">Authentication</a>
+                </li>
+                                    <ul id="tocify-subheader-authentication" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="authentication-POSTapi-register">
+                        <a href="#authentication-POSTapi-register">Creating new account</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="authentication-POSTapi-login">
+                        <a href="#authentication-POSTapi-login">Login on application</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="authentication-POSTapi-register-bez-tokena">
+                        <a href="#authentication-POSTapi-register-bez-tokena">Creating new account without getting access token</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="authentication-POSTapi-logout">
+                        <a href="#authentication-POSTapi-logout">Logout</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-2" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="coffee">
+                    <a href="#coffee">Coffee</a>
+                </li>
+                                    <ul id="tocify-subheader-coffee" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="coffee-GETapi-coffee">
+                        <a href="#coffee-GETapi-coffee">Display a listing of all coffees.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="coffee-GETapi-coffee--id-">
+                        <a href="#coffee-GETapi-coffee--id-">Display the specified coffee.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="coffee-POSTapi-coffee">
+                        <a href="#coffee-POSTapi-coffee">Store a newly created coffee in storage.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="coffee-PUTapi-coffee--id-">
+                        <a href="#coffee-PUTapi-coffee--id-">Update the specified coffee in storage.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="coffee-DELETEapi-coffee--id-">
+                        <a href="#coffee-DELETEapi-coffee--id-">Remove the specified coffee from storage.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-3" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="comments">
+                    <a href="#comments">Comments</a>
+                </li>
+                                    <ul id="tocify-subheader-comments" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="comments-GETapi-coffee-post-comment">
+                        <a href="#comments-GETapi-coffee-post-comment">Display a listing of all comments.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="comments-GETapi-coffee-post-comment--id-">
+                        <a href="#comments-GETapi-coffee-post-comment--id-">Display the specified resource.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="comments-POSTapi-coffee-post-comment">
+                        <a href="#comments-POSTapi-coffee-post-comment">Store a newly created comment in storage.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="comments-DELETEapi-coffee-post-comment--id-">
+                        <a href="#comments-DELETEapi-coffee-post-comment--id-">Remove the specified comment from storage.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-4" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="endpoints">
+                    <a href="#endpoints">Endpoints</a>
+                </li>
+                                    <ul id="tocify-subheader-endpoints" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-coffee-post-newest">
+                        <a href="#endpoints-GETapi-coffee-post-newest">GET api/coffee-post-newest</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="endpoints-GETapi-profile">
+                        <a href="#endpoints-GETapi-profile">GET api/profile</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-5" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="kategorije">
+                    <a href="#kategorije">Kategorije</a>
+                </li>
+                                    <ul id="tocify-subheader-kategorije" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="kategorije-GETapi-category">
+                        <a href="#kategorije-GETapi-category">Display a listing of all categories.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="kategorije-GETapi-category--id-">
+                        <a href="#kategorije-GETapi-category--id-">Display the specified category.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="kategorije-POSTapi-category">
+                        <a href="#kategorije-POSTapi-category">Store a newly created category in storage.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="kategorije-DELETEapi-category--id-">
+                        <a href="#kategorije-DELETEapi-category--id-">Remove the specified category from storage.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-6" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="posts">
+                    <a href="#posts">Posts</a>
+                </li>
+                                    <ul id="tocify-subheader-posts" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="posts-GETapi-coffee-post">
+                        <a href="#posts-GETapi-coffee-post">Display a listing of all CoffePosts.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="posts-GETapi-coffee-post--id-">
+                        <a href="#posts-GETapi-coffee-post--id-">Display the specified CoffePost.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="posts-POSTapi-coffee-post">
+                        <a href="#posts-POSTapi-coffee-post">Store a newly created CoffePost in storage.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="posts-PUTapi-coffee-post--id-">
+                        <a href="#posts-PUTapi-coffee-post--id-">Update the specified post in storage.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="posts-DELETEapi-coffee-post--id-">
+                        <a href="#posts-DELETEapi-coffee-post--id-">Remove the specified post from storage.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-7" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="statistics">
+                    <a href="#statistics">Statistics</a>
+                </li>
+                                    <ul id="tocify-subheader-statistics" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="statistics-GETapi-get-admin-statistics">
+                        <a href="#statistics-GETapi-get-admin-statistics">Getting detailed statistics for admin page.
+This route recognize content type header and returns json or xml.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="statistics-GETapi-get-report">
+                        <a href="#statistics-GETapi-get-report">Getting overall report for our blog in Excel file.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-8" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="user">
+                    <a href="#user">User</a>
+                </li>
+                                    <ul id="tocify-subheader-user" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="user-GETapi-user">
+                        <a href="#user-GETapi-user">Display a listing of the all Users. Need to be logged in.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="user-GETapi-user--id-">
+                        <a href="#user-GETapi-user--id-">Gettomg data of specified User.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="user-PUTapi-user--id-">
+                        <a href="#user-PUTapi-user--id-">Update the specified User.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="user-DELETEapi-user--id-">
+                        <a href="#user-DELETEapi-user--id-">Remove the specified User from database.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="user-POSTapi-user-role">
+                        <a href="#user-POSTapi-user-role">Store a newly created UserRole</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="user-GETapi-user-role--id-">
+                        <a href="#user-GETapi-user-role--id-">Display the specified UserRole using provided id.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="user-DELETEapi-user-role--id-">
+                        <a href="#user-DELETEapi-user-role--id-">Remove the specified UserRole from storage.</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+                    <ul id="tocify-header-9" class="tocify-header">
+                <li class="tocify-item level-1" data-unique="userrole">
+                    <a href="#userrole">UserRole</a>
+                </li>
+                                    <ul id="tocify-subheader-userrole" class="tocify-subheader">
+                                                    <li class="tocify-item level-2" data-unique="userrole-GETapi-user-role">
+                        <a href="#userrole-GETapi-user-role">Display a listing of all UserRoles</a>
+                    </li>
+                                                    </ul>
+                            </ul>
+        
+                        
+            </div>
+
+            <ul class="toc-footer" id="toc-footer">
+                            <li><a href="../docs/collection.json">View Postman collection</a></li>
+                            <li><a href="../docs/openapi.yaml">View OpenAPI spec</a></li>
+                            <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
+                    </ul>
+        <ul class="toc-footer" id="last-updated">
+        <li>Last updated: June 28 2022</li>
+    </ul>
+</div>
+
+<div class="page-wrapper">
+    <div class="dark-box"></div>
+    <div class="content">
+        <h1 id="introduction">Introduction</h1>
+<p>Coffee blog prestavlja blog koji je posvecen ljubiteljima kafe. Ovde je moguce procitati i objavljivati clanke vezane za kafu.</p>
+<p>Ovde se nalaze svi podaci koji su potrebni za pravilno koriscenje CoffeeBlog API</p>
+<blockquote>
+<p>Base URL</p>
+</blockquote>
+<pre><code class="language-yaml">http://localhost</code></pre>
+
+        
+
+        <h1 id="authentication">Authentication</h1>
+
+    
+
+            <h2 id="authentication-POSTapi-register">Creating new account</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-register">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/register"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "zzeyvbdvpdknqlnmupspchxiixtjvjbenjldqnhpwxnvtthkolianyqhslszjqiqiknwexahugopawrvchxkwgybgbskbyhwejqaokcjikcauftprpwmbdplmhkaiphfqumkfjfrepvnxplhhbtqxkbbqwwdeimstvhpvbmabsfguaasltceipvahtctkawdyhdxuqezlxwngliwzrccbzcjjcyrtrafun",
+    "lastname": "ocseagaioivdcxncudbnyfebpwuydlorxokmhmdkpbetuivjwvwr",
+    "email": "iuutxefhwaemesvqmgpidzeaekgugnmehspgjmgzbyhzjgogfyqotkpynfgwadehcqzdacniijxgmqgruhwdzywtghzevbgqxkfvqzntmifvciudtfhwijgjplhldjpahroyptpwlcavmrodndljwmbsovcyrliyvbtmbauikorjbcmprflcsyyefghslugykqbjxepgmppourwjjaclpffuwfumqwd",
+    "password": ""
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-register">
+</span>
+<span id="execution-results-POSTapi-register" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-register"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-register"></code></pre>
+</span>
+<span id="execution-error-POSTapi-register" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-register"></code></pre>
+</span>
+<form id="form-POSTapi-register" data-method="POST"
+      data-path="api/register"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-register', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-register"
+                    onclick="tryItOut('POSTapi-register');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-register"
+                    onclick="cancelTryOut('POSTapi-register');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-register" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/register</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="POSTapi-register"
+               value="zzeyvbdvpdknqlnmupspchxiixtjvjbenjldqnhpwxnvtthkolianyqhslszjqiqiknwexahugopawrvchxkwgybgbskbyhwejqaokcjikcauftprpwmbdplmhkaiphfqumkfjfrepvnxplhhbtqxkbbqwwdeimstvhpvbmabsfguaasltceipvahtctkawdyhdxuqezlxwngliwzrccbzcjjcyrtrafun"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>lastname</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="lastname"
+               data-endpoint="POSTapi-register"
+               value="ocseagaioivdcxncudbnyfebpwuydlorxokmhmdkpbetuivjwvwr"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="POSTapi-register"
+               value="iuutxefhwaemesvqmgpidzeaekgugnmehspgjmgzbyhzjgogfyqotkpynfgwadehcqzdacniijxgmqgruhwdzywtghzevbgqxkfvqzntmifvciudtfhwijgjplhldjpahroyptpwlcavmrodndljwmbsovcyrliyvbtmbauikorjbcmprflcsyyefghslugykqbjxepgmppourwjjaclpffuwfumqwd"
+               data-component="body" hidden>
+    <br>
+<p>Must be a valid email address. Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password"
+               data-endpoint="POSTapi-register"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p>Must be at least 5 characters.</p>
+        </p>
+        </form>
+
+            <h2 id="authentication-POSTapi-login">Login on application</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-login">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/login"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-login">
+</span>
+<span id="execution-results-POSTapi-login" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-login"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-login"></code></pre>
+</span>
+<span id="execution-error-POSTapi-login" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-login"></code></pre>
+</span>
+<form id="form-POSTapi-login" data-method="POST"
+      data-path="api/login"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-login', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-login"
+                    onclick="tryItOut('POSTapi-login');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-login"
+                    onclick="cancelTryOut('POSTapi-login');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-login" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/login</code></b>
+        </p>
+                    </form>
+
+            <h2 id="authentication-POSTapi-register-bez-tokena">Creating new account without getting access token</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-register-bez-tokena">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/register-bez-tokena"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "jlwcyrdjusfniowbgcrcutnifvxisqkzlncjqyuermreawinkbceqojwcreeoebiregqjersideuldfaxrfmpvbkdudaaclijzbuubmzyengymiqgtcnqjyrbqhjojvuakbvrsense",
+    "lastname": "nzhvrgugqxdgwpyqgufenzxkquqpxznrevahhvgsppxpuaczd",
+    "email": "fbkilkbgafhidprkwkjxykmdagoheothcnksqiirxjaqgbsjqifctztbepvyqpcewdqdlbichmbzxcpzuqjyubojybkqgomrrkbspkkwqiigspvxuhhpjbh",
+    "password": "weo"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-register-bez-tokena">
+</span>
+<span id="execution-results-POSTapi-register-bez-tokena" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-register-bez-tokena"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-register-bez-tokena"></code></pre>
+</span>
+<span id="execution-error-POSTapi-register-bez-tokena" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-register-bez-tokena"></code></pre>
+</span>
+<form id="form-POSTapi-register-bez-tokena" data-method="POST"
+      data-path="api/register-bez-tokena"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-register-bez-tokena', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-register-bez-tokena"
+                    onclick="tryItOut('POSTapi-register-bez-tokena');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-register-bez-tokena"
+                    onclick="cancelTryOut('POSTapi-register-bez-tokena');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-register-bez-tokena" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/register-bez-tokena</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="POSTapi-register-bez-tokena"
+               value="jlwcyrdjusfniowbgcrcutnifvxisqkzlncjqyuermreawinkbceqojwcreeoebiregqjersideuldfaxrfmpvbkdudaaclijzbuubmzyengymiqgtcnqjyrbqhjojvuakbvrsense"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>lastname</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="lastname"
+               data-endpoint="POSTapi-register-bez-tokena"
+               value="nzhvrgugqxdgwpyqgufenzxkquqpxznrevahhvgsppxpuaczd"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="POSTapi-register-bez-tokena"
+               value="fbkilkbgafhidprkwkjxykmdagoheothcnksqiirxjaqgbsjqifctztbepvyqpcewdqdlbichmbzxcpzuqjyubojybkqgomrrkbspkkwqiigspvxuhhpjbh"
+               data-component="body" hidden>
+    <br>
+<p>Must be a valid email address. Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="password"
+               data-endpoint="POSTapi-register-bez-tokena"
+               value="weo"
+               data-component="body" hidden>
+    <br>
+<p>Must be at least 5 characters.</p>
+        </p>
+        </form>
+
+            <h2 id="authentication-POSTapi-logout">Logout</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-logout">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/logout"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-logout">
+</span>
+<span id="execution-results-POSTapi-logout" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-logout"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-logout"></code></pre>
+</span>
+<span id="execution-error-POSTapi-logout" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-logout"></code></pre>
+</span>
+<form id="form-POSTapi-logout" data-method="POST"
+      data-path="api/logout"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-logout', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-logout"
+                    onclick="tryItOut('POSTapi-logout');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-logout"
+                    onclick="cancelTryOut('POSTapi-logout');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-logout" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/logout</code></b>
+        </p>
+                    </form>
+
+        <h1 id="coffee">Coffee</h1>
+
+    
+
+            <h2 id="coffee-GETapi-coffee">Display a listing of all coffees.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-coffee">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-coffee">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 57
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;coffees&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;coffee_name&quot;: &quot;Kafa1&quot;,
+            &quot;coffee_sort&quot;: &quot;kafa1&quot;,
+            &quot;country_origin&quot;: &quot;Srbija&quot;,
+            &quot;description&quot;: &quot;kratak opis&quot;,
+            &quot;user_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;lastname&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;,
+                &quot;user_role_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;role_name&quot;: &quot;Administrator&quot;,
+                    &quot;role_slug&quot;: &quot;admin&quot;,
+                    &quot;role_capability&quot;: 1,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-16T19:35:47.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:35:47.000000Z&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-coffee" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-coffee"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-coffee"></code></pre>
+</span>
+<span id="execution-error-GETapi-coffee" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-coffee"></code></pre>
+</span>
+<form id="form-GETapi-coffee" data-method="GET"
+      data-path="api/coffee"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-coffee', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-coffee"
+                    onclick="tryItOut('GETapi-coffee');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-coffee"
+                    onclick="cancelTryOut('GETapi-coffee');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-coffee" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/coffee</code></b>
+        </p>
+                    </form>
+
+            <h2 id="coffee-GETapi-coffee--id-">Display the specified coffee.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-coffee--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-coffee--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 56
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;coffee&quot;: {
+        &quot;id&quot;: 1,
+        &quot;coffee_name&quot;: &quot;Kafa1&quot;,
+        &quot;coffee_sort&quot;: &quot;kafa1&quot;,
+        &quot;country_origin&quot;: &quot;Srbija&quot;,
+        &quot;description&quot;: &quot;kratak opis&quot;,
+        &quot;user_id&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Admin&quot;,
+            &quot;lastname&quot;: &quot;Admin&quot;,
+            &quot;email&quot;: &quot;admin@admin.com&quot;,
+            &quot;user_role_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;role_name&quot;: &quot;Administrator&quot;,
+                &quot;role_slug&quot;: &quot;admin&quot;,
+                &quot;role_capability&quot;: 1,
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+        },
+        &quot;created_at&quot;: &quot;2022-06-16T19:35:47.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-06-16T19:35:47.000000Z&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-coffee--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-coffee--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-coffee--id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-coffee--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-coffee--id-"></code></pre>
+</span>
+<form id="form-GETapi-coffee--id-" data-method="GET"
+      data-path="api/coffee/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-coffee--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-coffee--id-"
+                    onclick="tryItOut('GETapi-coffee--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-coffee--id-"
+                    onclick="cancelTryOut('GETapi-coffee--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-coffee--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/coffee/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="GETapi-coffee--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the coffee.</p>
+            </p>
+                    </form>
+
+            <h2 id="coffee-POSTapi-coffee">Store a newly created coffee in storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-coffee">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "coffee_name": "ipknxuvgnlvzupjntmzyutpfcvkjcvzqjbqneyvkdtlhxifmzlnxlnqunzwokinjmycxflebqpwevecvfssgehnzvqenqcjzntrjtjvzytpxdrrmanfausnysrycwgscwgkrdnmjfmbswlpkjpeafzsgkrimjtudzleflzifhqscbwaenuzprqozrrndahndbrgqezpsqhruqvjanjphgblixfxzrusbfrnhmjwfpl",
+    "coffee_sort": "fqzbefxbdblmgokvbssswkavxrlxfposkjgxjpzthvwcfrfoobqusfganbejhdsoxidkqlcqwjlbfbndjgjwntgwmdlehdcjsmhmdasqwkkgwgnakdpaelqwvgzlkdxtrnrgkufmdhfmeplgdqusxybeguendtqwedfnateahh",
+    "country_origin": "ppaomtovmbxexxljvnhpdbyqsprxhpzsvqkmmnwqdtogfsphlinlodmkcsljctmllkafzrbcpeuqlfaevijclkwotgkemsgmysvkxidwmlrymivh",
+    "description": "zwffikaxdoeajluagwmxzflgjfenkvpgmpapvayphqtbnhfalvjzcvedcknkbrshzzpvfjwgijbogxrpdjlijuezlyad"
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-coffee">
+</span>
+<span id="execution-results-POSTapi-coffee" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-coffee"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-coffee"></code></pre>
+</span>
+<span id="execution-error-POSTapi-coffee" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-coffee"></code></pre>
+</span>
+<form id="form-POSTapi-coffee" data-method="POST"
+      data-path="api/coffee"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-coffee', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-coffee"
+                    onclick="tryItOut('POSTapi-coffee');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-coffee"
+                    onclick="cancelTryOut('POSTapi-coffee');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-coffee" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/coffee</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>coffee_name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="coffee_name"
+               data-endpoint="POSTapi-coffee"
+               value="ipknxuvgnlvzupjntmzyutpfcvkjcvzqjbqneyvkdtlhxifmzlnxlnqunzwokinjmycxflebqpwevecvfssgehnzvqenqcjzntrjtjvzytpxdrrmanfausnysrycwgscwgkrdnmjfmbswlpkjpeafzsgkrimjtudzleflzifhqscbwaenuzprqozrrndahndbrgqezpsqhruqvjanjphgblixfxzrusbfrnhmjwfpl"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>coffee_sort</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="coffee_sort"
+               data-endpoint="POSTapi-coffee"
+               value="fqzbefxbdblmgokvbssswkavxrlxfposkjgxjpzthvwcfrfoobqusfganbejhdsoxidkqlcqwjlbfbndjgjwntgwmdlehdcjsmhmdasqwkkgwgnakdpaelqwvgzlkdxtrnrgkufmdhfmeplgdqusxybeguendtqwedfnateahh"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>country_origin</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="country_origin"
+               data-endpoint="POSTapi-coffee"
+               value="ppaomtovmbxexxljvnhpdbyqsprxhpzsvqkmmnwqdtogfsphlinlodmkcsljctmllkafzrbcpeuqlfaevijclkwotgkemsgmysvkxidwmlrymivh"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="description"
+               data-endpoint="POSTapi-coffee"
+               value="zwffikaxdoeajluagwmxzflgjfenkvpgmpapvayphqtbnhfalvjzcvedcknkbrshzzpvfjwgijbogxrpdjlijuezlyad"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+        </form>
+
+            <h2 id="coffee-PUTapi-coffee--id-">Update the specified coffee in storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-PUTapi-coffee--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "coffee_name": "ygoeoihnhzlthnpiboiuzzffzvpbgbycwnvttphgjtotemvlmbqiqcowgadzseyzfuztylfecwsvkseuwquiraezsjyeculnpksulkccbscnwyakhgzmfhziopzsnvxqalvkpnoyumwilzknffjogqgxtopshiwdow",
+    "coffee_sort": "ixwdhlinhcnxciqlenxxqbfqpqbewiilpcjrolzlxdmydlcnvdgttahvmmraqonlrvqtjzngmftlhlkwwpqzgehhovzstvgqcfnkwvhuiacxyiwwlkaexemnjku",
+    "country_origin": "smqfghfbybnezuunlpbxbzmfwucgukufemvuehmkmgcxqujtwqpqgjevwjlwkuiijlaxhstkjaqpnrqrlxhyqetzcjnxlqznjlagflqzevmsnkrznhmpgnyjaypadumoatnhmjphbsgqujjhxqvmtjiillagdocngrsqgkiiobwuuzjsoetixsqixqywvhtyadiqdeyywpksfasyrixijvfxremtpkzgxwzsfzkhmvtdboxqae",
+    "description": "xlfdaadjfvaooamhzofmbqhzacynwwompytnevvjjpeaohdcoclwiiaaoourkgmzcetyadhcykpclrkhcjzuiitoltnzplsbqkivoisjrxggqdnsvatlsboyeeslyoawr"
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-coffee--id-">
+</span>
+<span id="execution-results-PUTapi-coffee--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-coffee--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-coffee--id-"></code></pre>
+</span>
+<span id="execution-error-PUTapi-coffee--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-coffee--id-"></code></pre>
+</span>
+<form id="form-PUTapi-coffee--id-" data-method="PUT"
+      data-path="api/coffee/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-coffee--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-coffee--id-"
+                    onclick="tryItOut('PUTapi-coffee--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-coffee--id-"
+                    onclick="cancelTryOut('PUTapi-coffee--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-coffee--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/coffee/{id}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/coffee/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="PUTapi-coffee--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the coffee.</p>
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>coffee_name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="coffee_name"
+               data-endpoint="PUTapi-coffee--id-"
+               value="ygoeoihnhzlthnpiboiuzzffzvpbgbycwnvttphgjtotemvlmbqiqcowgadzseyzfuztylfecwsvkseuwquiraezsjyeculnpksulkccbscnwyakhgzmfhziopzsnvxqalvkpnoyumwilzknffjogqgxtopshiwdow"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>coffee_sort</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="coffee_sort"
+               data-endpoint="PUTapi-coffee--id-"
+               value="ixwdhlinhcnxciqlenxxqbfqpqbewiilpcjrolzlxdmydlcnvdgttahvmmraqonlrvqtjzngmftlhlkwwpqzgehhovzstvgqcfnkwvhuiacxyiwwlkaexemnjku"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>country_origin</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="country_origin"
+               data-endpoint="PUTapi-coffee--id-"
+               value="smqfghfbybnezuunlpbxbzmfwucgukufemvuehmkmgcxqujtwqpqgjevwjlwkuiijlaxhstkjaqpnrqrlxhyqetzcjnxlqznjlagflqzevmsnkrznhmpgnyjaypadumoatnhmjphbsgqujjhxqvmtjiillagdocngrsqgkiiobwuuzjsoetixsqixqywvhtyadiqdeyywpksfasyrixijvfxremtpkzgxwzsfzkhmvtdboxqae"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="description"
+               data-endpoint="PUTapi-coffee--id-"
+               value="xlfdaadjfvaooamhzofmbqhzacynwwompytnevvjjpeaohdcoclwiiaaoourkgmzcetyadhcykpclrkhcjzuiitoltnzplsbqkivoisjrxggqdnsvatlsboyeeslyoawr"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+        </form>
+
+            <h2 id="coffee-DELETEapi-coffee--id-">Remove the specified coffee from storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-coffee--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-coffee--id-">
+</span>
+<span id="execution-results-DELETEapi-coffee--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-coffee--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-coffee--id-"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-coffee--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-coffee--id-"></code></pre>
+</span>
+<form id="form-DELETEapi-coffee--id-" data-method="DELETE"
+      data-path="api/coffee/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-coffee--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-coffee--id-"
+                    onclick="tryItOut('DELETEapi-coffee--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-coffee--id-"
+                    onclick="cancelTryOut('DELETEapi-coffee--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-coffee--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/coffee/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="DELETEapi-coffee--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the coffee.</p>
+            </p>
+                    </form>
+
+        <h1 id="comments">Comments</h1>
+
+    
+
+            <h2 id="comments-GETapi-coffee-post-comment">Display a listing of all comments.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-coffee-post-comment">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post-comment"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-coffee-post-comment">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 53
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;Coffee_post_comments&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;comment_content&quot;: &quot;komentarisan ...&quot;,
+            &quot;post_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;title&quot;: &quot;Naslov 1i&quot;,
+                &quot;post_content&quot;: &quot;opis opis&quot;,
+                &quot;category_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;General&quot;,
+                    &quot;slug&quot;: &quot;general&quot;,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;coffee_id&quot;: null,
+                &quot;user_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;Admin&quot;,
+                    &quot;lastname&quot;: &quot;Admin&quot;,
+                    &quot;email&quot;: &quot;admin@admin.com&quot;,
+                    &quot;user_role_id&quot;: {
+                        &quot;id&quot;: 1,
+                        &quot;role_name&quot;: &quot;Administrator&quot;,
+                        &quot;role_slug&quot;: &quot;admin&quot;,
+                        &quot;role_capability&quot;: 1,
+                        &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                        &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                    },
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-16T19:34:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-16T19:35:05.000000Z&quot;
+            },
+            &quot;user_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;lastname&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;,
+                &quot;user_role_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;role_name&quot;: &quot;Administrator&quot;,
+                    &quot;role_slug&quot;: &quot;admin&quot;,
+                    &quot;role_capability&quot;: 1,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-16T19:37:33.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:37:33.000000Z&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-coffee-post-comment" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-coffee-post-comment"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-coffee-post-comment"></code></pre>
+</span>
+<span id="execution-error-GETapi-coffee-post-comment" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-coffee-post-comment"></code></pre>
+</span>
+<form id="form-GETapi-coffee-post-comment" data-method="GET"
+      data-path="api/coffee-post-comment"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-coffee-post-comment', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-coffee-post-comment"
+                    onclick="tryItOut('GETapi-coffee-post-comment');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-coffee-post-comment"
+                    onclick="cancelTryOut('GETapi-coffee-post-comment');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-coffee-post-comment" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/coffee-post-comment</code></b>
+        </p>
+                    </form>
+
+            <h2 id="comments-GETapi-coffee-post-comment--id-">Display the specified resource.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-coffee-post-comment--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post-comment/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-coffee-post-comment--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 52
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;Coffee_post_comment&quot;: {
+        &quot;id&quot;: 1,
+        &quot;comment_content&quot;: &quot;komentarisan ...&quot;,
+        &quot;post_id&quot;: {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Naslov 1i&quot;,
+            &quot;post_content&quot;: &quot;opis opis&quot;,
+            &quot;category_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;General&quot;,
+                &quot;slug&quot;: &quot;general&quot;,
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;coffee_id&quot;: null,
+            &quot;user_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;lastname&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;,
+                &quot;user_role_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;role_name&quot;: &quot;Administrator&quot;,
+                    &quot;role_slug&quot;: &quot;admin&quot;,
+                    &quot;role_capability&quot;: 1,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-16T19:34:46.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:35:05.000000Z&quot;
+        },
+        &quot;user_id&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Admin&quot;,
+            &quot;lastname&quot;: &quot;Admin&quot;,
+            &quot;email&quot;: &quot;admin@admin.com&quot;,
+            &quot;user_role_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;role_name&quot;: &quot;Administrator&quot;,
+                &quot;role_slug&quot;: &quot;admin&quot;,
+                &quot;role_capability&quot;: 1,
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+        },
+        &quot;created_at&quot;: &quot;2022-06-16T19:37:33.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-06-16T19:37:33.000000Z&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-coffee-post-comment--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-coffee-post-comment--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-coffee-post-comment--id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-coffee-post-comment--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-coffee-post-comment--id-"></code></pre>
+</span>
+<form id="form-GETapi-coffee-post-comment--id-" data-method="GET"
+      data-path="api/coffee-post-comment/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-coffee-post-comment--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-coffee-post-comment--id-"
+                    onclick="tryItOut('GETapi-coffee-post-comment--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-coffee-post-comment--id-"
+                    onclick="cancelTryOut('GETapi-coffee-post-comment--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-coffee-post-comment--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/coffee-post-comment/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="GETapi-coffee-post-comment--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the coffee post comment.</p>
+            </p>
+                    </form>
+
+            <h2 id="comments-POSTapi-coffee-post-comment">Store a newly created comment in storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-coffee-post-comment">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post-comment"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "comment_content": "ivyjtkvtwwwblbtutydmzdeukyoudekcagtnnczejxcsrdenhdabxbfddcnyhajdbjumnsswrwwvnlhcwvgndejecfqcbxxjwdywlqxqwbgsaalvcjrgrzqhkkayrbrsoetirywgccosiqchwhizzygfswurcnlbrjhetzfnqhjektodtourfgvqovjajsxbwegbfcflwqts",
+    "post_id": 7
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-coffee-post-comment">
+</span>
+<span id="execution-results-POSTapi-coffee-post-comment" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-coffee-post-comment"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-coffee-post-comment"></code></pre>
+</span>
+<span id="execution-error-POSTapi-coffee-post-comment" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-coffee-post-comment"></code></pre>
+</span>
+<form id="form-POSTapi-coffee-post-comment" data-method="POST"
+      data-path="api/coffee-post-comment"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-coffee-post-comment', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-coffee-post-comment"
+                    onclick="tryItOut('POSTapi-coffee-post-comment');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-coffee-post-comment"
+                    onclick="cancelTryOut('POSTapi-coffee-post-comment');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-coffee-post-comment" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/coffee-post-comment</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>comment_content</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="comment_content"
+               data-endpoint="POSTapi-coffee-post-comment"
+               value="ivyjtkvtwwwblbtutydmzdeukyoudekcagtnnczejxcsrdenhdabxbfddcnyhajdbjumnsswrwwvnlhcwvgndejecfqcbxxjwdywlqxqwbgsaalvcjrgrzqhkkayrbrsoetirywgccosiqchwhizzygfswurcnlbrjhetzfnqhjektodtourfgvqovjajsxbwegbfcflwqts"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>post_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="post_id"
+               data-endpoint="POSTapi-coffee-post-comment"
+               value="7"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+        </form>
+
+            <h2 id="comments-DELETEapi-coffee-post-comment--id-">Remove the specified comment from storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-coffee-post-comment--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post-comment/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-coffee-post-comment--id-">
+</span>
+<span id="execution-results-DELETEapi-coffee-post-comment--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-coffee-post-comment--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-coffee-post-comment--id-"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-coffee-post-comment--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-coffee-post-comment--id-"></code></pre>
+</span>
+<form id="form-DELETEapi-coffee-post-comment--id-" data-method="DELETE"
+      data-path="api/coffee-post-comment/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-coffee-post-comment--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-coffee-post-comment--id-"
+                    onclick="tryItOut('DELETEapi-coffee-post-comment--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-coffee-post-comment--id-"
+                    onclick="cancelTryOut('DELETEapi-coffee-post-comment--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-coffee-post-comment--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/coffee-post-comment/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="DELETEapi-coffee-post-comment--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the coffee post comment.</p>
+            </p>
+                    </form>
+
+        <h1 id="endpoints">Endpoints</h1>
+
+    
+
+            <h2 id="endpoints-GETapi-coffee-post-newest">GET api/coffee-post-newest</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-coffee-post-newest">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post-newest"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-coffee-post-newest">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 51
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;posts&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Naslov 1i&quot;,
+            &quot;post_content&quot;: &quot;opis opis&quot;,
+            &quot;category_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;General&quot;,
+                &quot;slug&quot;: &quot;general&quot;,
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;coffee_id&quot;: null,
+            &quot;user_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;lastname&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;,
+                &quot;user_role_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;role_name&quot;: &quot;Administrator&quot;,
+                    &quot;role_slug&quot;: &quot;admin&quot;,
+                    &quot;role_capability&quot;: 1,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-16T19:34:46.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:35:05.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Naslov 2&quot;,
+            &quot;post_content&quot;: &quot;adasdad&quot;,
+            &quot;category_id&quot;: {
+                &quot;id&quot;: 2,
+                &quot;name&quot;: &quot;Kategorija&quot;,
+                &quot;slug&quot;: &quot;kategorija&quot;,
+                &quot;created_at&quot;: &quot;2022-06-16T19:36:05.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-16T19:36:05.000000Z&quot;
+            },
+            &quot;coffee_id&quot;: null,
+            &quot;user_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;lastname&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;,
+                &quot;user_role_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;role_name&quot;: &quot;Administrator&quot;,
+                    &quot;role_slug&quot;: &quot;admin&quot;,
+                    &quot;role_capability&quot;: 1,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-16T19:35:21.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:36:24.000000Z&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-coffee-post-newest" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-coffee-post-newest"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-coffee-post-newest"></code></pre>
+</span>
+<span id="execution-error-GETapi-coffee-post-newest" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-coffee-post-newest"></code></pre>
+</span>
+<form id="form-GETapi-coffee-post-newest" data-method="GET"
+      data-path="api/coffee-post-newest"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-coffee-post-newest', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-coffee-post-newest"
+                    onclick="tryItOut('GETapi-coffee-post-newest');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-coffee-post-newest"
+                    onclick="cancelTryOut('GETapi-coffee-post-newest');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-coffee-post-newest" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/coffee-post-newest</code></b>
+        </p>
+                    </form>
+
+            <h2 id="endpoints-GETapi-profile">GET api/profile</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-profile">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/profile"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-profile">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-profile" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-profile"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-profile"></code></pre>
+</span>
+<span id="execution-error-GETapi-profile" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-profile"></code></pre>
+</span>
+<form id="form-GETapi-profile" data-method="GET"
+      data-path="api/profile"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-profile', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-profile"
+                    onclick="tryItOut('GETapi-profile');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-profile"
+                    onclick="cancelTryOut('GETapi-profile');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-profile" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/profile</code></b>
+        </p>
+                    </form>
+
+        <h1 id="kategorije">Kategorije</h1>
+
+    
+
+            <h2 id="kategorije-GETapi-category">Display a listing of all categories.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-category">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/category"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-category">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 59
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;categories&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;General&quot;,
+            &quot;slug&quot;: &quot;general&quot;,
+            &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;name&quot;: &quot;Kategorija&quot;,
+            &quot;slug&quot;: &quot;kategorija&quot;,
+            &quot;created_at&quot;: &quot;2022-06-16T19:36:05.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:36:05.000000Z&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-category" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-category"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-category"></code></pre>
+</span>
+<span id="execution-error-GETapi-category" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-category"></code></pre>
+</span>
+<form id="form-GETapi-category" data-method="GET"
+      data-path="api/category"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-category', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-category"
+                    onclick="tryItOut('GETapi-category');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-category"
+                    onclick="cancelTryOut('GETapi-category');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-category" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/category</code></b>
+        </p>
+                    </form>
+
+            <h2 id="kategorije-GETapi-category--id-">Display the specified category.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-category--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/category/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-category--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 58
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;categorY&quot;: {
+        &quot;id&quot;: 1,
+        &quot;name&quot;: &quot;General&quot;,
+        &quot;slug&quot;: &quot;general&quot;,
+        &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-category--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-category--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-category--id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-category--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-category--id-"></code></pre>
+</span>
+<form id="form-GETapi-category--id-" data-method="GET"
+      data-path="api/category/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-category--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-category--id-"
+                    onclick="tryItOut('GETapi-category--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-category--id-"
+                    onclick="cancelTryOut('GETapi-category--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-category--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/category/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="GETapi-category--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the category.</p>
+            </p>
+                    </form>
+
+            <h2 id="kategorije-POSTapi-category">Store a newly created category in storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-category">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/category"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-category">
+</span>
+<span id="execution-results-POSTapi-category" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-category"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-category"></code></pre>
+</span>
+<span id="execution-error-POSTapi-category" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-category"></code></pre>
+</span>
+<form id="form-POSTapi-category" data-method="POST"
+      data-path="api/category"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-category', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-category"
+                    onclick="tryItOut('POSTapi-category');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-category"
+                    onclick="cancelTryOut('POSTapi-category');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-category" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/category</code></b>
+        </p>
+                    </form>
+
+            <h2 id="kategorije-DELETEapi-category--id-">Remove the specified category from storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-category--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/category/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-category--id-">
+</span>
+<span id="execution-results-DELETEapi-category--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-category--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-category--id-"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-category--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-category--id-"></code></pre>
+</span>
+<form id="form-DELETEapi-category--id-" data-method="DELETE"
+      data-path="api/category/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-category--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-category--id-"
+                    onclick="tryItOut('DELETEapi-category--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-category--id-"
+                    onclick="cancelTryOut('DELETEapi-category--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-category--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/category/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="DELETEapi-category--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the category.</p>
+            </p>
+                    </form>
+
+        <h1 id="posts">Posts</h1>
+
+    
+
+            <h2 id="posts-GETapi-coffee-post">Display a listing of all CoffePosts.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-coffee-post">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-coffee-post">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 55
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;posts&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;title&quot;: &quot;Naslov 1i&quot;,
+            &quot;post_content&quot;: &quot;opis opis&quot;,
+            &quot;category_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;General&quot;,
+                &quot;slug&quot;: &quot;general&quot;,
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;coffee_id&quot;: null,
+            &quot;user_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;lastname&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;,
+                &quot;user_role_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;role_name&quot;: &quot;Administrator&quot;,
+                    &quot;role_slug&quot;: &quot;admin&quot;,
+                    &quot;role_capability&quot;: 1,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-16T19:34:46.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:35:05.000000Z&quot;
+        },
+        {
+            &quot;id&quot;: 2,
+            &quot;title&quot;: &quot;Naslov 2&quot;,
+            &quot;post_content&quot;: &quot;adasdad&quot;,
+            &quot;category_id&quot;: {
+                &quot;id&quot;: 2,
+                &quot;name&quot;: &quot;Kategorija&quot;,
+                &quot;slug&quot;: &quot;kategorija&quot;,
+                &quot;created_at&quot;: &quot;2022-06-16T19:36:05.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-16T19:36:05.000000Z&quot;
+            },
+            &quot;coffee_id&quot;: null,
+            &quot;user_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;lastname&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;,
+                &quot;user_role_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;role_name&quot;: &quot;Administrator&quot;,
+                    &quot;role_slug&quot;: &quot;admin&quot;,
+                    &quot;role_capability&quot;: 1,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-16T19:35:21.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:36:24.000000Z&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-coffee-post" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-coffee-post"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-coffee-post"></code></pre>
+</span>
+<span id="execution-error-GETapi-coffee-post" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-coffee-post"></code></pre>
+</span>
+<form id="form-GETapi-coffee-post" data-method="GET"
+      data-path="api/coffee-post"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-coffee-post', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-coffee-post"
+                    onclick="tryItOut('GETapi-coffee-post');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-coffee-post"
+                    onclick="cancelTryOut('GETapi-coffee-post');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-coffee-post" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/coffee-post</code></b>
+        </p>
+                    </form>
+
+            <h2 id="posts-GETapi-coffee-post--id-">Display the specified CoffePost.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-coffee-post--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-coffee-post--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+x-ratelimit-limit: 60
+x-ratelimit-remaining: 54
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;post&quot;: {
+        &quot;id&quot;: 1,
+        &quot;title&quot;: &quot;Naslov 1i&quot;,
+        &quot;post_content&quot;: &quot;opis opis&quot;,
+        &quot;category_id&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;General&quot;,
+            &quot;slug&quot;: &quot;general&quot;,
+            &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+        },
+        &quot;coffee_id&quot;: null,
+        &quot;user_id&quot;: {
+            &quot;id&quot;: 1,
+            &quot;name&quot;: &quot;Admin&quot;,
+            &quot;lastname&quot;: &quot;Admin&quot;,
+            &quot;email&quot;: &quot;admin@admin.com&quot;,
+            &quot;user_role_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;role_name&quot;: &quot;Administrator&quot;,
+                &quot;role_slug&quot;: &quot;admin&quot;,
+                &quot;role_capability&quot;: 1,
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+        },
+        &quot;created_at&quot;: &quot;2022-06-16T19:34:46.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2022-06-16T19:35:05.000000Z&quot;
+    },
+    &quot;comments&quot;: [
+        {
+            &quot;id&quot;: 1,
+            &quot;comment_content&quot;: &quot;komentarisan ...&quot;,
+            &quot;post_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;title&quot;: &quot;Naslov 1i&quot;,
+                &quot;post_content&quot;: &quot;opis opis&quot;,
+                &quot;category_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;General&quot;,
+                    &quot;slug&quot;: &quot;general&quot;,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;coffee_id&quot;: null,
+                &quot;user_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;Admin&quot;,
+                    &quot;lastname&quot;: &quot;Admin&quot;,
+                    &quot;email&quot;: &quot;admin@admin.com&quot;,
+                    &quot;user_role_id&quot;: {
+                        &quot;id&quot;: 1,
+                        &quot;role_name&quot;: &quot;Administrator&quot;,
+                        &quot;role_slug&quot;: &quot;admin&quot;,
+                        &quot;role_capability&quot;: 1,
+                        &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                        &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                    },
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-16T19:34:46.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-16T19:35:05.000000Z&quot;
+            },
+            &quot;user_id&quot;: {
+                &quot;id&quot;: 1,
+                &quot;name&quot;: &quot;Admin&quot;,
+                &quot;lastname&quot;: &quot;Admin&quot;,
+                &quot;email&quot;: &quot;admin@admin.com&quot;,
+                &quot;user_role_id&quot;: {
+                    &quot;id&quot;: 1,
+                    &quot;role_name&quot;: &quot;Administrator&quot;,
+                    &quot;role_slug&quot;: &quot;admin&quot;,
+                    &quot;role_capability&quot;: 1,
+                    &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                    &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+                },
+                &quot;created_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;,
+                &quot;updated_at&quot;: &quot;2022-06-14T20:12:54.000000Z&quot;
+            },
+            &quot;created_at&quot;: &quot;2022-06-16T19:37:33.000000Z&quot;,
+            &quot;updated_at&quot;: &quot;2022-06-16T19:37:33.000000Z&quot;
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-coffee-post--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-coffee-post--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-coffee-post--id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-coffee-post--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-coffee-post--id-"></code></pre>
+</span>
+<form id="form-GETapi-coffee-post--id-" data-method="GET"
+      data-path="api/coffee-post/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-coffee-post--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-coffee-post--id-"
+                    onclick="tryItOut('GETapi-coffee-post--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-coffee-post--id-"
+                    onclick="cancelTryOut('GETapi-coffee-post--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-coffee-post--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/coffee-post/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="GETapi-coffee-post--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the coffee post.</p>
+            </p>
+                    </form>
+
+            <h2 id="posts-POSTapi-coffee-post">Store a newly created CoffePost in storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-coffee-post">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "emladxvduwfmkxidws",
+    "post_content": "aut",
+    "category_id": 10,
+    "coffee_id": 2
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-coffee-post">
+</span>
+<span id="execution-results-POSTapi-coffee-post" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-coffee-post"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-coffee-post"></code></pre>
+</span>
+<span id="execution-error-POSTapi-coffee-post" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-coffee-post"></code></pre>
+</span>
+<form id="form-POSTapi-coffee-post" data-method="POST"
+      data-path="api/coffee-post"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-coffee-post', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-coffee-post"
+                    onclick="tryItOut('POSTapi-coffee-post');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-coffee-post"
+                    onclick="cancelTryOut('POSTapi-coffee-post');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-coffee-post" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/coffee-post</code></b>
+        </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>title</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="title"
+               data-endpoint="POSTapi-coffee-post"
+               value="emladxvduwfmkxidws"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>post_content</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="post_content"
+               data-endpoint="POSTapi-coffee-post"
+               value="aut"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>category_id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="category_id"
+               data-endpoint="POSTapi-coffee-post"
+               value="10"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>coffee_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="coffee_id"
+               data-endpoint="POSTapi-coffee-post"
+               value="2"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+        </form>
+
+            <h2 id="posts-PUTapi-coffee-post--id-">Update the specified post in storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-PUTapi-coffee-post--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "title": "givofhhxrqfxigmapqllbnxunnrnbyolecsxpffhadukctbegohwtjuklgqdzqntqhwjradnaemgbgngbsxsvtnoiroajk",
+    "post_content": "nostrum",
+    "category_id": "officiis",
+    "coffee_id": 9
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-coffee-post--id-">
+</span>
+<span id="execution-results-PUTapi-coffee-post--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-coffee-post--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-coffee-post--id-"></code></pre>
+</span>
+<span id="execution-error-PUTapi-coffee-post--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-coffee-post--id-"></code></pre>
+</span>
+<form id="form-PUTapi-coffee-post--id-" data-method="PUT"
+      data-path="api/coffee-post/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-coffee-post--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-coffee-post--id-"
+                    onclick="tryItOut('PUTapi-coffee-post--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-coffee-post--id-"
+                    onclick="cancelTryOut('PUTapi-coffee-post--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-coffee-post--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/coffee-post/{id}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/coffee-post/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="PUTapi-coffee-post--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the coffee post.</p>
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>title</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="title"
+               data-endpoint="PUTapi-coffee-post--id-"
+               value="givofhhxrqfxigmapqllbnxunnrnbyolecsxpffhadukctbegohwtjuklgqdzqntqhwjradnaemgbgngbsxsvtnoiroajk"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>post_content</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="post_content"
+               data-endpoint="PUTapi-coffee-post--id-"
+               value="nostrum"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>category_id</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="category_id"
+               data-endpoint="PUTapi-coffee-post--id-"
+               value="officiis"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>coffee_id</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="coffee_id"
+               data-endpoint="PUTapi-coffee-post--id-"
+               value="9"
+               data-component="body" hidden>
+    <br>
+
+        </p>
+        </form>
+
+            <h2 id="posts-DELETEapi-coffee-post--id-">Remove the specified post from storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-coffee-post--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/coffee-post/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-coffee-post--id-">
+</span>
+<span id="execution-results-DELETEapi-coffee-post--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-coffee-post--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-coffee-post--id-"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-coffee-post--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-coffee-post--id-"></code></pre>
+</span>
+<form id="form-DELETEapi-coffee-post--id-" data-method="DELETE"
+      data-path="api/coffee-post/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-coffee-post--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-coffee-post--id-"
+                    onclick="tryItOut('DELETEapi-coffee-post--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-coffee-post--id-"
+                    onclick="cancelTryOut('DELETEapi-coffee-post--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-coffee-post--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/coffee-post/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="DELETEapi-coffee-post--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the coffee post.</p>
+            </p>
+                    </form>
+
+        <h1 id="statistics">Statistics</h1>
+
+    
+
+            <h2 id="statistics-GETapi-get-admin-statistics">Getting detailed statistics for admin page.
+This route recognize content type header and returns json or xml.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-get-admin-statistics">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/get-admin-statistics"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-get-admin-statistics">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-get-admin-statistics" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-get-admin-statistics"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-get-admin-statistics"></code></pre>
+</span>
+<span id="execution-error-GETapi-get-admin-statistics" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-get-admin-statistics"></code></pre>
+</span>
+<form id="form-GETapi-get-admin-statistics" data-method="GET"
+      data-path="api/get-admin-statistics"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-get-admin-statistics', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-get-admin-statistics"
+                    onclick="tryItOut('GETapi-get-admin-statistics');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-get-admin-statistics"
+                    onclick="cancelTryOut('GETapi-get-admin-statistics');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-get-admin-statistics" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/get-admin-statistics</code></b>
+        </p>
+                    </form>
+
+            <h2 id="statistics-GETapi-get-report">Getting overall report for our blog in Excel file.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-get-report">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/get-report"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-get-report">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-get-report" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-get-report"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-get-report"></code></pre>
+</span>
+<span id="execution-error-GETapi-get-report" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-get-report"></code></pre>
+</span>
+<form id="form-GETapi-get-report" data-method="GET"
+      data-path="api/get-report"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-get-report', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-get-report"
+                    onclick="tryItOut('GETapi-get-report');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-get-report"
+                    onclick="cancelTryOut('GETapi-get-report');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-get-report" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/get-report</code></b>
+        </p>
+                    </form>
+
+        <h1 id="user">User</h1>
+
+    
+
+            <h2 id="user-GETapi-user">Display a listing of the all Users. Need to be logged in.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-user">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-user">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-user" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-user"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user"></code></pre>
+</span>
+<span id="execution-error-GETapi-user" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user"></code></pre>
+</span>
+<form id="form-GETapi-user" data-method="GET"
+      data-path="api/user"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-user', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-user"
+                    onclick="tryItOut('GETapi-user');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-user"
+                    onclick="cancelTryOut('GETapi-user');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-user" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/user</code></b>
+        </p>
+                    </form>
+
+            <h2 id="user-GETapi-user--id-">Gettomg data of specified User.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-user--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-user--id-">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-user--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-user--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user--id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-user--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user--id-"></code></pre>
+</span>
+<form id="form-GETapi-user--id-" data-method="GET"
+      data-path="api/user/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-user--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-user--id-"
+                    onclick="tryItOut('GETapi-user--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-user--id-"
+                    onclick="cancelTryOut('GETapi-user--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-user--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/user/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="GETapi-user--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the user.</p>
+            </p>
+                    </form>
+
+            <h2 id="user-PUTapi-user--id-">Update the specified User.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-PUTapi-user--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "igxzrbjmuijrqyqcqetqppnztpeoxyhsirpzsiptzbqhnntsrtfybphwdnuppsryhyifypswlpflzrgiazuscbarxwoucsxdxbvimwydpleiqzqobpmwshvnneikmlappkmkrzvognlgibmavqrptmbkosjrcztvuxwuwdutwbsyvswtbeumvkgubnpcwhpaxzmdxapfhakisqphcwvwmprrqzywhgupyzfmfmhxqjxycjmairy",
+    "lastname": "fdphfpfbgbirskyxjfinzijhhbrfazqbafzpzbdxjfhqyxfkwapxojutanaenwcgdcxji",
+    "password": ""
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-user--id-">
+</span>
+<span id="execution-results-PUTapi-user--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-user--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-user--id-"></code></pre>
+</span>
+<span id="execution-error-PUTapi-user--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-user--id-"></code></pre>
+</span>
+<form id="form-PUTapi-user--id-" data-method="PUT"
+      data-path="api/user/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-user--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-user--id-"
+                    onclick="tryItOut('PUTapi-user--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-user--id-"
+                    onclick="cancelTryOut('PUTapi-user--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-user--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/user/{id}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/user/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="PUTapi-user--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the user.</p>
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="PUTapi-user--id-"
+               value="igxzrbjmuijrqyqcqetqppnztpeoxyhsirpzsiptzbqhnntsrtfybphwdnuppsryhyifypswlpflzrgiazuscbarxwoucsxdxbvimwydpleiqzqobpmwshvnneikmlappkmkrzvognlgibmavqrptmbkosjrcztvuxwuwdutwbsyvswtbeumvkgubnpcwhpaxzmdxapfhakisqphcwvwmprrqzywhgupyzfmfmhxqjxycjmairy"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>lastname</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="lastname"
+               data-endpoint="PUTapi-user--id-"
+               value="fdphfpfbgbirskyxjfinzijhhbrfazqbafzpzbdxjfhqyxfkwapxojutanaenwcgdcxji"
+               data-component="body" hidden>
+    <br>
+<p>Must not be greater than 255 characters.</p>
+        </p>
+                <p>
+            <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="email"
+               data-endpoint="PUTapi-user--id-"
+               value=""
+               data-component="body" hidden>
+    <br>
+
+        </p>
+                <p>
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="password"
+               data-endpoint="PUTapi-user--id-"
+               value=""
+               data-component="body" hidden>
+    <br>
+<p>Must be at least 5 characters.</p>
+        </p>
+                <p>
+            <b><code>user_role_id</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="user_role_id"
+               data-endpoint="PUTapi-user--id-"
+               value=""
+               data-component="body" hidden>
+    <br>
+
+        </p>
+        </form>
+
+            <h2 id="user-DELETEapi-user--id-">Remove the specified User from database.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-user--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-user--id-">
+</span>
+<span id="execution-results-DELETEapi-user--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-user--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-user--id-"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-user--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-user--id-"></code></pre>
+</span>
+<form id="form-DELETEapi-user--id-" data-method="DELETE"
+      data-path="api/user/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-user--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-user--id-"
+                    onclick="tryItOut('DELETEapi-user--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-user--id-"
+                    onclick="cancelTryOut('DELETEapi-user--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-user--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/user/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="DELETEapi-user--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the user.</p>
+            </p>
+                    </form>
+
+            <h2 id="user-POSTapi-user-role">Store a newly created UserRole</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-user-role">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user-role"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-user-role">
+</span>
+<span id="execution-results-POSTapi-user-role" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-user-role"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-user-role"></code></pre>
+</span>
+<span id="execution-error-POSTapi-user-role" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-user-role"></code></pre>
+</span>
+<form id="form-POSTapi-user-role" data-method="POST"
+      data-path="api/user-role"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-user-role', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-user-role"
+                    onclick="tryItOut('POSTapi-user-role');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-user-role"
+                    onclick="cancelTryOut('POSTapi-user-role');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-user-role" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/user-role</code></b>
+        </p>
+                    </form>
+
+            <h2 id="user-GETapi-user-role--id-">Display the specified UserRole using provided id.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-user-role--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user-role/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-user-role--id-">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-user-role--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-user-role--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user-role--id-"></code></pre>
+</span>
+<span id="execution-error-GETapi-user-role--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user-role--id-"></code></pre>
+</span>
+<form id="form-GETapi-user-role--id-" data-method="GET"
+      data-path="api/user-role/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-user-role--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-user-role--id-"
+                    onclick="tryItOut('GETapi-user-role--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-user-role--id-"
+                    onclick="cancelTryOut('GETapi-user-role--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-user-role--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/user-role/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="GETapi-user-role--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the user role.</p>
+            </p>
+                    </form>
+
+            <h2 id="user-DELETEapi-user-role--id-">Remove the specified UserRole from storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-DELETEapi-user-role--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user-role/1"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "DELETE",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-DELETEapi-user-role--id-">
+</span>
+<span id="execution-results-DELETEapi-user-role--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-DELETEapi-user-role--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-DELETEapi-user-role--id-"></code></pre>
+</span>
+<span id="execution-error-DELETEapi-user-role--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-DELETEapi-user-role--id-"></code></pre>
+</span>
+<form id="form-DELETEapi-user-role--id-" data-method="DELETE"
+      data-path="api/user-role/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-user-role--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-DELETEapi-user-role--id-"
+                    onclick="tryItOut('DELETEapi-user-role--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-DELETEapi-user-role--id-"
+                    onclick="cancelTryOut('DELETEapi-user-role--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-DELETEapi-user-role--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-red">DELETE</small>
+            <b><code>api/user-role/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="DELETEapi-user-role--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>The ID of the user role.</p>
+            </p>
+                    </form>
+
+        <h1 id="userrole">UserRole</h1>
+
+    
+
+            <h2 id="userrole-GETapi-user-role">Display a listing of all UserRoles</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-user-role">
+<blockquote>Example request:</blockquote>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/user-role"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-user-role">
+            <blockquote>
+            <p>Example response (401):</p>
+        </blockquote>
+                <details class="annotation">
+            <summary>
+                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
+            </summary>
+            <pre><code class="language-http">cache-control: no-cache, private
+content-type: application/json
+access-control-allow-origin: *
+ </code></pre>
+        </details>         <pre>
+
+<code class="language-json">{
+    &quot;message&quot;: &quot;Unauthenticated.&quot;
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-user-role" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-GETapi-user-role"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-GETapi-user-role"></code></pre>
+</span>
+<span id="execution-error-GETapi-user-role" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-GETapi-user-role"></code></pre>
+</span>
+<form id="form-GETapi-user-role" data-method="GET"
+      data-path="api/user-role"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-user-role', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-GETapi-user-role"
+                    onclick="tryItOut('GETapi-user-role');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-GETapi-user-role"
+                    onclick="cancelTryOut('GETapi-user-role');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-GETapi-user-role" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/user-role</code></b>
+        </p>
+                    </form>
+
+    
+
+        
+    </div>
+    <div class="dark-box">
+                    <div class="lang-selector">
+                                                        <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
+                            </div>
+            </div>
+</div>
+</body>
+</html>

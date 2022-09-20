@@ -1,0 +1,221 @@
+.coffeeTable {
+
+  display: grid;
+  height: fit-content;
+  background: var(--white);
+  padding: 20px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  border-radius: 20px;
+  margin-bottom: 7em;
+}
+
+#addPostLabel{
+  margin-right: 1em;
+  margin-bottom: 3px;
+}
+.coffeeTableHeader {
+
+  align-items: flex-start;
+}
+.in{
+  margin-left: 0.5em;
+  margin-top: 0.5em;
+}
+
+.coffeeTableHeader h2 {
+  font-weight: 500;
+  color: var(--black1);
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+#tableCol {
+  background-color: #9c9c9c;
+  height: 3em;
+}
+
+#tableBody {
+  background-color: #faf8f8;
+}
+#tableCol {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.coffeeTable table {
+  width: 80%;
+  border-collapse: collapse;
+}
+.coffeeTable table thead td {
+  font-weight: 600;
+}
+.coffeeTable table tr {
+  color: var(--black1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.coffeeTable table tr:last-child {
+  border-bottom: none;
+}
+
+.coffeeTable table tr td {
+  padding: 10px;
+}
+.coffeeTable table tr td:last-child {
+  text-align: end;
+}
+.coffeeTable table tr td:nth-child(2) {
+  text-align: end;
+}
+.coffeeTable table tr td:nth-child(3) {
+  text-align: center;
+}
+.table{
+  margin-top: 1em;
+}
+
+.btnDeleteCoffee {
+  background-color: #aa1a1a !important;
+  color: white;
+  padding: 8px 20px;
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease-out;
+  border-radius: 2px;
+  text-decoration: none;
+}
+.btnDeleteCoffee:hover {
+  background: #ec4e4e !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease-out;
+  transition: 250ms;
+}
+
+.btnUpdateCoffee {
+  background-color: #17181b !important;
+  color: white;
+  padding: 8px 20px;
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease-out;
+  border-radius: 2px;
+  text-decoration: none;
+}
+.btnUpdateCoffee:hover {
+  background: #525255 !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease-out;
+  transition: 250ms;
+}
+
+.modalContent {
+  padding-top: 2em;
+}
+#radius {
+  margin-top: -5em;
+
+  border-radius: 2em;
+}
+.modalTitle {
+  padding-left: 5.5em;
+}
+.coffee{
+  margin-top: 2em;
+  margin-left: 3em;
+  margin-bottom: 3em;
+}
+
+#changeUserInfo{
+  margin-top: 2em;
+  width: 60%;
+}
+.publish-btn{
+  background-color: #17181b !important;
+width: 25%;
+margin-top: 1em;
+  color: white !important;
+  border: 2px solid var(--primary);
+
+}
+
+.coffee input {
+  display: block;
+  width: 260px;
+  height: 30px;
+  padding-left: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin: 7px;
+  font-size: 17px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  transition: 0.5s;
+}
+.coffee input:focus {
+  outline-width: 0;
+  background: rgba(31, 134, 252, 0.15);
+  transition: 0.5s;
+}
+
+.coffee label {
+  padding-left: 8px;
+  font-size: 15px;
+  color: #444;
+}
+.btnUpdateCoffeeInfo {
+  background-color: #17181b !important;
+  color: white;
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease-out;
+  border-radius: 2px;
+}
+
+.btnInfo {
+  margin-left: -27em;
+  padding-right: 10em;
+}
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.row {
+  padding-top: 3em;
+  width: 100%;
+}
+
+.columnInfo {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.modalContent:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.btnAddCoffee {
+  background-color: #17181b !important;
+  color: white;
+  padding: 8px 20px;
+  border: 1px solid var(--primary);
+  transition: all 0.3s ease-out;
+  border-radius: 5px;
+  margin-top: 0.5em;
+  margin-bottom: 3em;
+  margin-left: 0.5em;
+  text-decoration: none;
+}
+.btnAddCoffee:hover {
+  background: #525255 !important;
+  color: #ffffff !important;
+  transition: all 0.3s ease-out;
+  transition: 250ms;
+}
+.table {
+  margin-left: 0.5em;
+  
+}
