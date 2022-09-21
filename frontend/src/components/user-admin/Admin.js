@@ -76,15 +76,15 @@ const Admin = () => {
                   {" "}
                     <GiCoffeeBeans size={20}/>
                 </span>
-                                <span className="title">Coffee Blog</span>
+                                <span className="title">Blog</span>
                             </Link>
                         </li>
                         <li>
-                            <Link to="/coffees">
+                            <Link to="/cakes">
                 <span className="icon">
                   <GiCoffeeBeans size={20}/>
                 </span>
-                                <span className="title">Kafe</span>
+                                <span className="title">Torte</span>
                             </Link>
                         </li>
                         <li>

@@ -11,7 +11,7 @@ function SingleBP() {
     const [comments, setComments] = useState(null);
     useEffect(() => {
         if (post === null) {
-            axios.get('http://localhost:8000/api/coffee-post/' + id.id)
+            axios.get('http://localhost:8000/api/cake-post/' + id.id)
                 .then((res) => {
                     console.log(res.data)
                     setPost(res.data.post)
@@ -33,7 +33,7 @@ function SingleBP() {
 
     function sacuvajKomentar(e) {
         e.preventDefault()
-        axios.post('http://localhost:8000/api/coffee-post-comment', {
+        axios.post('http://localhost:8000/api/cake-post-comment', {
             post_id: id.id,
             comment_content: comment.comment_content
         }, {
@@ -75,18 +75,18 @@ function SingleBP() {
                                     {post.post_content}
                                 </p>
                             </section>
-                            {post.coffee_id == null ? <></> : <section className="mb-8">
+                            {post.cake_id == null ? <></> : <section className="mb-8">
                                 <p className="fs-5 mb-4">
-                                    Naziv kafe: {post.coffee_id.coffee_name}
+                                    Naziv torte: {post.cake_id.cake_name}
                                 </p>
                                 <p className="fs-5 mb-4">
-                                    Vrsta kafe: {post.coffee_id.coffee_sort}
+                                    Vrsta torte: {post.cake_id.cake_sort}
                                 </p>
                                 <p className="fs-5 mb-4">
-                                    Opis kafe: {post.coffee_id.description}
+                                    Opis torte: {post.cake_id.description}
                                 </p>
                                 <p className="fs-5 mb-4">
-                                    Zemlja porekla: {post.coffee_id.country_origin}
+                                    Zemlja porekla: {post.cake_id.country_origin}
                                 </p>
                             </section>}
                         </article>

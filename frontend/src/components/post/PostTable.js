@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const PostTable = () => {
   function deletePost(id) {
-    let url = 'http://localhost:8000/api/coffee-post/' + id;
+    let url = 'http://localhost:8000/api/cake-post/' + id;
     let token = 'Bearer ' + window.sessionStorage.getItem('auth_token');
     axios.delete(url, {
       headers: {
@@ -24,7 +24,7 @@ const PostTable = () => {
   const [posts,setPosts] = useState(null);
   useEffect(() => {
     if (posts === null) {
-      axios.get('http://localhost:8000/api/coffee-post')
+      axios.get('http://localhost:8000/api/cake-post')
           .then((res) => {
             setPosts(res.data.posts)
           }).catch((e) => {
@@ -36,8 +36,8 @@ const PostTable = () => {
 
   return (
     <>
-      <div className="coffeeTable">
-        <div className="coffeeTableHeader">
+      <div className="cakeTable">
+        <div className="cakeTableHeader">
           <h2>Clanci</h2>
           <Link className="btnAddCoffee" to={"/addPost/"} > Dodaj novi clanak</Link>
         </div>
@@ -63,7 +63,7 @@ const PostTable = () => {
                   <td>{p.title} </td>
                   <td>{p.post_content.substring(0, 20)}...</td>
                   <td>{p.category_id.name}</td>
-                  <td>{p.coffee_id!==null?p.coffee_id.coffee_name:''}</td>
+                  <td>{p.cake_id!==null?p.cake_id.cake_name:''}</td>
                   <td>{p.user_id.name}</td>
                   <td>{new Date(p.created_at).toLocaleDateString()}</td>
                   <td>{new Date(p.updated_at).toLocaleDateString()}</td>

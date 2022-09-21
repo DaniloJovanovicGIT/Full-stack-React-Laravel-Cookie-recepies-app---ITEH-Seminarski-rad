@@ -8,7 +8,7 @@ const AllPosts = () => {
   useEffect(() => {
       console.log("All posts"+123)
     if (posts === null) {
-      axios.get('http://localhost:8000/api/coffee-post')
+      axios.get('http://localhost:8000/api/cake-post')
           .then((res) => {
             setPosts(res.data.posts)
           }).catch((e) => {

@@ -6,13 +6,13 @@ import {useParams} from "react-router-dom";
 const AddPost = () => {
 
     const [categories, setCategories] = useState(null);
-    const [coffees, setCoffees] = useState(null);
+    const [cakes, setCoffees] = useState(null);
 
     useEffect(() => {
-        if (coffees === null) {
-            axios.get('http://localhost:8000/api/coffee')
+        if (cakes === null) {
+            axios.get('http://localhost:8000/api/cake')
                 .then((res) => {
-                    setCoffees(res.data.coffees)
+                    setCoffees(res.data.cakes)
                 }).catch((e) => {
 
             })
@@ -45,7 +45,7 @@ const AddPost = () => {
     const [postInput, setPostInput] = useState(null);
     useEffect(() => {
         if (postInput === null && id.id !== undefined) {
-            axios.get('http://localhost:8000/api/coffee-post/' + id.id)
+            axios.get('http://localhost:8000/api/cake-post/' + id.id)
                 .then((res) => {
                     console.log(res.data)
                     setPostInput(res.data.post)
@@ -59,7 +59,7 @@ const AddPost = () => {
         e.preventDefault()
         console.log(postInput)
         if (id.id !== null && id.id !== undefined) {
-            axios.put('http://localhost:8000/api/coffee-post/' + id.id, postInput, {
+            axios.put('http://localhost:8000/api/cake-post/' + id.id, postInput, {
                 headers: {
                     'Authorization': 'Bearer ' + window.sessionStorage.getItem('auth_token')
                 }
@@ -76,7 +76,7 @@ const AddPost = () => {
                 console.log(e)
             })
         } else {
-            axios.post('http://localhost:8000/api/coffee-post', postInput, {
+            axios.post('http://localhost:8000/api/cake-post', postInput, {
                 headers: {
                     'Authorization': 'Bearer ' + window.sessionStorage.getItem('auth_token')
                 }
@@ -129,11 +129,11 @@ const AddPost = () => {
                     </div>
                     <div>
                         <label id="addPostLabel">Izaberi kolac   </label>
-                        <select name='coffee_id' onChange={handleInput}
-                                value={postInput == null || postInput.coffee_id == null ? '' : postInput.coffee_id.id}>
+                        <select name='cake_id' onChange={handleInput}
+                                value={postInput == null || postInput.cake_id == null ? '' : postInput.cake_id.id}>
                             <option value>Nema</option>
-                            {coffees == null ? <></> : coffees.map((coffee) => (
-                                <option key={coffee.id} value={coffee.id}>{coffee.coffee_name}</option>
+                            {cakes == null ? <></> : cakes.map((cake) => (
+                                <option key={cake.id} value={cake.id}>{cake.cake_name}</option>
                             ))}
                         </select>
                     </div>

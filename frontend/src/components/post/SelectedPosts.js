@@ -10,7 +10,7 @@ function SelectedPosts() {
   useEffect(() => {
       console.log("Selected"+123)
          if (posts === null) {
-        axios.get('http://localhost:8000/api/coffee-post-newest')
+        axios.get('http://localhost:8000/api/cake-post-newest')
             .then((res) => {
               setPosts(res.data.posts)
               console.log(res.data)

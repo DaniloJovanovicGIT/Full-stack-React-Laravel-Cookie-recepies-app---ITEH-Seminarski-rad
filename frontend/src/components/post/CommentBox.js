@@ -6,7 +6,7 @@ import axios from "axios";
 function CommentBox({comment}) {
 
     function obrisiKomentar(id) {
-        let url = 'http://localhost:8000/api/coffee-post-comment/' + id;
+        let url = 'http://localhost:8000/api/cake-post-comment/' + id;
         let token = 'Bearer ' + window.sessionStorage.getItem('auth_token');
         axios.delete(url, {
             headers: {
