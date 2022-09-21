@@ -10,7 +10,7 @@ import Login from "./components/user-admin/Login";
 import Register from "./components/user-admin/Register";
 import AddPost from "./components/post/AddPost";
 import Admin from "./components/user-admin/Admin";
-import CoffeeTable from "./components/coffee/CoffeeTable";
+import CakeTable from "./components/cake/CakeTable";
 import "./styles/App.css";
 import UsersTable from "./components/user-admin/UsersTable";
 import PostTable from "./components/post/PostTable";
@@ -18,7 +18,7 @@ import CategoryTable from "./components/categories/CategoryTable";
 import CategoryInfo from "./components/categories/CategoryInfo";
 import NavBar from "./components/navigation/NavBar";
 import Footer from "./components/navigation/Footer";
-import CoffeeInfo from "./components/coffee/CoffeeInfo";
+import CakeInfo from "./components/cake/CakeInfo";
 import UserInfo from "./components/user-admin/UserInfo";
 import Recipes from "./pages/Recipes";
 
@@ -43,9 +43,9 @@ function App() {
                 <Route path="/addPost/:id" element={<AddPost/>}/>
                 <Route path="/admin" element={<Admin/>}/>
 
-                <Route path="/coffees" element={<CoffeeTable/>}/>
-                <Route path="/coffee" element={<CoffeeInfo/>}/>
-                <Route path="/coffee/:id" element={<CoffeeInfo/>}/>
+                <Route path="/cakes" element={<CakeTable/>}/>
+                <Route path="/cake" element={<CakeInfo/>}/>
+                <Route path="/cake/:id" element={<CakeInfo/>}/>
 
                 <Route path="/users" element={<UsersTable/>}/>
                 <Route path="/user" element={<UserInfo/>}/>
