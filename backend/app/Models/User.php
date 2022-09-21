@@ -47,16 +47,16 @@ class User extends Authenticatable {
         return $this->belongsTo(UserRole::class);
     }
 
-    public function coffee_post() {
-        return $this->hasMany(CoffeePost::class);
+    public function cake_post() {
+        return $this->hasMany(CakePost::class);
     }
 
-    public function coffee_post_comment() {
-        return $this->hasMany(CoffeePostComment::class);
+    public function cake_post_comment() {
+        return $this->hasMany(CakePostComment::class);
     }
 
-    public function coffee() {
-        return $this->hasMany(Coffee::class);
+    public function cake() {
+        return $this->hasMany(Cake::class);
     }
 
     public function category(){
