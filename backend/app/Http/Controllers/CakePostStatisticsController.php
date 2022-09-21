@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Coffee;
-use App\Models\CoffeePost;
-use App\Models\CoffeePostComment;
+use App\Models\Cake;
+use App\Models\CakePost;
+use App\Models\CakePostComment;
 use App\Models\User;
 use App\Services\StatisticsReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CoffeePostStatisticsController extends Controller {
+class CakePostStatisticsController extends Controller {
 
     /**
      * @group Statistics
@@ -23,20 +23,20 @@ class CoffeePostStatisticsController extends Controller {
      */
     public function getStatisticsForAdminPage(Request $request) {
 
-        $number_of_posts = count(CoffeePost::all());
-        $number_of_comments = count(CoffeePostComment::all());
+        $number_of_posts = count(CakePost::all());
+        $number_of_comments = count(CakePostComment::all());
         $number_of_users = count(User::all());
         $active_users = DB::table('personal_access_tokens')->count();
 
         $postovi_data_statistika = [];
-        $brojPostovaDanas = count(CoffeePost::whereDate('created_at', date('Y-m-d'))->get());
+        $brojPostovaDanas = count(CakePost::whereDate('created_at', date('Y-m-d'))->get());
 
         $postovi_data_statistika[] = ['name' => 'Danas', 'uv' => $brojPostovaDanas];
 
 
         for ($i = 1; $i < 6; $i++) {
             $yesterday = date("Y-m-d", strtotime("-$i days"));
-            $brojPostova = count(CoffeePost::whereDate('created_at', $yesterday)->get());
+            $brojPostova = count(CakePost::whereDate('created_at', $yesterday)->get());
             $postovi_data_statistika[] = ['name' => $yesterday, 'uv' => $brojPostova];
         }
 
@@ -68,16 +68,16 @@ class CoffeePostStatisticsController extends Controller {
      */
     public function getAdminReport() {
 
-        $number_of_posts = count(CoffeePost::all());
-        $number_of_comments = count(CoffeePostComment::all());
-        $number_of_coffees = count(Coffee::all());
+        $number_of_posts = count(CakePost::all());
+        $number_of_comments = count(CakePostComment::all());
+        $number_of_cakes = count(Cake::all());
         $number_of_users = count(User::all());
         $datum = date('Y-m-d');
         $prosecanBrojObjavaPoKorisniku = $number_of_users > 0 ? $number_of_posts / $number_of_users : 0;
         $prosecanBrojKomentaraPoKorisniku = $number_of_users > 0 ? $number_of_comments / $number_of_users : 0;
 
 
-        $idPost = CoffeePostComment::select('post_id')
+        $idPost = CakePostComment::select('post_id')
             ->groupBy('post_id')
             ->orderByRaw('COUNT(*) DESC')
             ->limit(1)
@@ -85,14 +85,14 @@ class CoffeePostStatisticsController extends Controller {
 
         $post = null;
         if (!empty($idPost)) {
-            $post = CoffeePost::find($idPost);
+            $post = CakePost::find($idPost);
         }
 
         $fileGenerator = new StatisticsReport();
         $file = $fileGenerator->generateAdminReportExcel([
             'brojPostova' => $number_of_posts,
             'brojKomentara' => $number_of_comments,
-            'brojKafa' => $number_of_coffees,
+            'brojTorti' => $number_of_cakes,
             'brojKorisnika' => $number_of_users,
             'datum' => $datum,
             'prosecanBrojObjavaPoKorisniku' => $prosecanBrojObjavaPoKorisniku,

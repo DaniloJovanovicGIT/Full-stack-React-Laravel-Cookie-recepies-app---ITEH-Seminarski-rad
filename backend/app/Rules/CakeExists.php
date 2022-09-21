@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
-use App\Models\Coffee;
+use App\Models\Cake;
 use Illuminate\Contracts\Validation\Rule;
 
-class CoffeeExsists implements Rule
+class CakeExists implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,7 +26,7 @@ class CoffeeExsists implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Coffee::find($value)!==null;
+        return Cake::find($value)!==null;
     }
 
     /**
@@ -36,6 +36,6 @@ class CoffeeExsists implements Rule
      */
     public function message()
     {
-        return 'Coffee does not exsist.';
+        return 'Cake does not exist.';
     }
 }

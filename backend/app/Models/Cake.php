@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Coffee extends Model {
+class Cake extends Model {
     use HasFactory;
 
     protected $guarded = [''];
 
-    public function coffee() {
-        return $this->hasMany(CoffeePost::class);
+    public function cake() {
+        return $this->hasMany(CakePost::class);
     }
 
     public function user_that_posted() {

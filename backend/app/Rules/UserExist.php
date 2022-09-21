@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
 
-class UserExsist implements Rule
+class UserExist implements Rule
 {
     /**
      * Create a new rule instance.
@@ -37,6 +37,6 @@ class UserExsist implements Rule
      */
     public function message()
     {
-        return 'User doesnt exsist';
+        return 'User doesnt exist';
     }
 }

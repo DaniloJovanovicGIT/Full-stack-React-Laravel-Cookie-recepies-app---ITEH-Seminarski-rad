@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: 'Coffe blog API'
-  description: 'Coffee blog prestavlja blog koji je posvecen ljubiteljima kafe. Ovde je moguce procitati i objavljivati clanke vezane za kafu.'
+  description: 'Cake blog prestavlja blog koji je posvecen ljubiteljima kafe. Ovde je moguce procitati i objavljivati clanke vezane za kafu.'
   version: 1.0.0
 servers:
   -
@@ -234,10 +234,10 @@ paths:
                     items:
                       type: object
       tags:
-        - Coffee
+        - Cake
       security: []
     post:
-      summary: 'Store a newly created coffee in storage.'
+      summary: 'Store a newly created cake in storage.'
       description: ''
       parameters:
         -
@@ -256,7 +256,7 @@ paths:
             type: string
       responses: {  }
       tags:
-        - Coffee
+        - Cake
       requestBody:
         required: true
         content:
@@ -287,7 +287,7 @@ paths:
       security: []
   '/api/coffee/{id}':
     get:
-      summary: 'Display the specified coffee.'
+      summary: 'Display the specified cake.'
       description: ''
       parameters:
         -
@@ -360,10 +360,10 @@ paths:
                       created_at: '2022-06-16T19:35:47.000000Z'
                       updated_at: '2022-06-16T19:35:47.000000Z'
       tags:
-        - Coffee
+        - Cake
       security: []
     put:
-      summary: 'Update the specified coffee in storage.'
+      summary: 'Update the specified cake in storage.'
       description: ''
       parameters:
         -
@@ -382,7 +382,7 @@ paths:
             type: string
       responses: {  }
       tags:
-        - Coffee
+        - Cake
       requestBody:
         required: true
         content:
@@ -412,7 +412,7 @@ paths:
                 - country_origin
       security: []
     delete:
-      summary: 'Remove the specified coffee from storage.'
+      summary: 'Remove the specified cake from storage.'
       description: ''
       parameters:
         -
@@ -431,13 +431,13 @@ paths:
             type: string
       responses: {  }
       tags:
-        - Coffee
+        - Cake
       security: []
     parameters:
       -
         in: path
         name: id
-        description: 'The ID of the coffee.'
+        description: 'The ID of the cake.'
         example: 1
         required: true
         schema:
@@ -762,7 +762,7 @@ paths:
       -
         in: path
         name: id
-        description: 'The ID of the coffee post comment.'
+        description: 'The ID of the cake post comment.'
         example: 1
         required: true
         schema:
@@ -1560,7 +1560,7 @@ paths:
       -
         in: path
         name: id
-        description: 'The ID of the coffee post.'
+        description: 'The ID of the cake post.'
         example: 1
         required: true
         schema:
@@ -1916,7 +1916,7 @@ tags:
     name: Authentication
     description: ''
   -
-    name: Coffee
+    name: Cake
     description: ''
   -
     name: Comments

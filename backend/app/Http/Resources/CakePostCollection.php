@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class CoffeeCollection extends ResourceCollection
+class CakePostCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -12,7 +12,7 @@ class CoffeeCollection extends ResourceCollection
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    public static $wrap='coffees';
+    public static $wrap='posts';
     public function toArray($request)
     {
         return parent::toArray($request);

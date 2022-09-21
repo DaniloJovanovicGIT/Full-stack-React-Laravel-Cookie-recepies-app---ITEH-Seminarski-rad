@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('post_statistics', function (Blueprint $table) {
+        Schema::create('cake_post_comments', function (Blueprint $table) {
             $table->id();
-            $table->integer('number_views');
-            $table->integer('coffee_post_id');
+            $table->string('comment_content');
+            $table->foreignId('post_id');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_statistics');
+        Schema::dropIfExists('cake_post_comments');
     }
 };

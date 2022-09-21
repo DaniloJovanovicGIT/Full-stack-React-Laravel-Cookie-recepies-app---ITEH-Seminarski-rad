@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
-use App\Models\UserRole;
+use App\Models\CakePost;
 use Illuminate\Contracts\Validation\Rule;
 
-class UserRoleExsist implements Rule
+class CakePostExists implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,8 +26,7 @@ class UserRoleExsist implements Rule
      */
     public function passes($attribute, $value)
     {
-        $userRole = UserRole::find(intval($value));
-        return $userRole!=null;
+        return CakePost::find($value)!==null;
     }
 
     /**
@@ -37,6 +36,6 @@ class UserRoleExsist implements Rule
      */
     public function message()
     {
-        return 'User role doesnt exsist!';
+        return 'Cake post does not exist.';
     }
 }

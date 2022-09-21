@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CoffeeController;
-use App\Http\Controllers\CoffeePostCommentController;
-use App\Http\Controllers\CoffeePostController;
-use App\Http\Controllers\CoffeePostStatisticsController;
+use App\Http\Controllers\CakeController;
+use App\Http\Controllers\CakePostCommentController;
+use App\Http\Controllers\CakePostController;
+use App\Http\Controllers\CakePostStatisticsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRoleController;
 use App\Models\Category;
@@ -33,10 +33,10 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::resource('category', CategoryController::class)->only(['index', 'show']);
-Route::resource('coffee', CoffeeController::class)->only(['index', 'show']);
-Route::resource('coffee-post', CoffeePostController::class)->only(['index', 'show']);
-Route::resource('coffee-post-comment', CoffeePostCommentController::class)->only(['index', 'show']);
-Route::get('coffee-post-newest', [CoffeePostController::class, 'show_newest']);
+Route::resource('cake', CakeController::class)->only(['index', 'show']);
+Route::resource('cake-post', CakePostController::class)->only(['index', 'show']);
+Route::resource('cake-post-comment', CakePostCommentController::class)->only(['index', 'show']);
+Route::get('cake-post-newest', [CakePostController::class, 'show_newest']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
@@ -46,15 +46,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::post('register-bez-tokena', [AuthController::class, 'registerBezTokena']);
 
-    Route::get('/get-admin-statistics', [CoffeePostStatisticsController::class, 'getStatisticsForAdminPage']);
-    Route::get('/get-report', [CoffeePostStatisticsController::class, 'getAdminReport']);
+    Route::get('/get-admin-statistics', [CakePostStatisticsController::class, 'getStatisticsForAdminPage']);
+    Route::get('/get-report', [CakePostStatisticsController::class, 'getAdminReport']);
 
 
     Route::resource('user', UserController::class)->only(['index', 'show', 'update', 'destroy']);
 
-    Route::resource('coffee', CoffeeController::class)->only(['store', 'update', 'destroy']);
-    Route::resource('coffee-post', CoffeePostController::class)->only(['store', 'update', 'destroy']);
-    Route::resource('coffee-post-comment', CoffeePostCommentController::class)->only(['store', 'destroy']);
+    Route::resource('cake', CakeController::class)->only(['store', 'update', 'destroy']);
+    Route::resource('cake-post', CakePostController::class)->only(['store', 'update', 'destroy']);
+    Route::resource('cake-post-comment', CakePostCommentController::class)->only(['store', 'destroy']);
 
     Route::resource('category', CategoryController::class)->only(['store', 'destroy']);
 
