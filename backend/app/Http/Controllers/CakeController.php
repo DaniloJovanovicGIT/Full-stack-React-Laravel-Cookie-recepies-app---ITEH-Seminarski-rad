@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CoffeeCollection;
-use App\Http\Resources\CoffeeResource;
-use App\Models\Coffee;
+use App\Http\Resources\CakeCollection;
+use App\Http\Resources\CakeResource;
+use App\Models\Cake;
 use App\Models\UserRole;
-use App\Rules\UserExsist;
+use App\Rules\UserExist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CoffeeController extends Controller {
+class CakeController extends Controller {
     /**
-     * @group Coffee
-     * Display a listing of all coffees.
+     * @group Cake
+     * Display a listing of all cakes.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return new CoffeeCollection(Coffee::all());
+        return new CakeCollection(Cake::all());
     }
 
     /**
@@ -31,8 +31,8 @@ class CoffeeController extends Controller {
     }
 
     /**
-     * @group Coffee
-     * Store a newly created coffee in storage.
+     * @group Cake
+     * Store a newly created cake in storage.
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
@@ -47,9 +47,9 @@ class CoffeeController extends Controller {
         }
 
             $validator = Validator::make($request->all(), [
-                'coffee_name' => 'required|string|max:255',
-                'coffee_sort' => 'required|string|max:255',
-                'country_origin' => 'required|string|max:255',
+                'cake_name' => 'required|string|max:255',
+                'cake_sort' => 'required|string|max:255',
+                'vegan' => 'required|string|max:255',
                 'description' => 'string|max:255',
             ]);
 
@@ -57,48 +57,48 @@ class CoffeeController extends Controller {
                 return response()->json($validator->errors());
             }
 
-            $coffee = Coffee::create([
-                'coffee_name' => $request->coffee_name,
-                'coffee_sort' => $request->coffee_sort,
-                'country_origin' => $request->country_origin,
+            $cake = Cake::create([
+                'cake_name' => $request->cake_name,
+                'cake_sort' => $request->cake_sort,
+                'vegan' => $request->vegan,
                 'description' => $request->description,
                 'user_id' => $user_logged->id
             ]);
 
-            return response()->json(['success' => true, 'message' => 'Coffee saved.', new CoffeeResource($coffee)]);
+            return response()->json(['success' => true, 'message' => 'Cake saved.', new CakeResource($cake)]);
 
     }
 
     /**
-     * @group Coffee
-     * Display the specified coffee.
+     * @group Cake
+     * Display the specified cake.
      *
-     * @param \App\Models\Coffee $coffee
+     * @param \App\Models\Cake $cake
      * @return \Illuminate\Http\Response
      */
-    public function show(Coffee $coffee) {
-        return new CoffeeResource($coffee);
+    public function show(Cake $cake) {
+        return new CakeResource($cake);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Coffee $coffee
+     * @param \App\Models\Cake $cake
      * @return \Illuminate\Http\Response
      */
-    public function edit(Coffee $coffee) {
+    public function edit(Cake $cake) {
         //
     }
 
     /**
-     * @group Coffee
-     * Update the specified coffee in storage.
+     * @group Cake
+     * Update the specified cake in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Coffee $coffee
+     * @param \App\Models\Cake $cake
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Coffee $coffee) {
+    public function update(Request $request, Cake $cake) {
 
         $user_logged = auth()->user();
         $user_role=UserRole::find($user_logged->user_role_id);
@@ -108,9 +108,9 @@ class CoffeeController extends Controller {
         }
 
         $validator = Validator::make($request->all(), [
-            'coffee_name' => 'required|string|max:255',
-            'coffee_sort' => 'required|string|max:255',
-            'country_origin' => 'required|string|max:255',
+            'cake_name' => 'required|string|max:255',
+            'cake_sort' => 'required|string|max:255',
+            'vegan' => 'required|string|max:255',
             'description' => 'string|max:255',
         ]);
 
@@ -118,22 +118,22 @@ class CoffeeController extends Controller {
             return response()->json($validator->errors());
         }
 
-        $coffee->coffee_name = $request->coffee_name;
-        $coffee->coffee_sort = $request->coffee_sort;
-        $coffee->country_origin = $request->country_origin;
-        $coffee->description = $request->description;
-        $coffee->save();
-        return response()->json(['success' => true, 'message' => 'Coffee updated.', new CoffeeResource($coffee)]);
+        $cake->cake_name = $request->cake_name;
+        $cake->cake_sort = $request->cake_sort;
+        $cake->vegan = $request->vegan;
+        $cake->description = $request->description;
+        $cake->save();
+        return response()->json(['success' => true, 'message' => 'Cake updated.', new CakeResource($cake)]);
     }
 
     /**
-     * @group Coffee
-     * Remove the specified coffee from storage.
+     * @group Cake
+     * Remove the specified cake from storage.
      *
-     * @param \App\Models\Coffee $coffee
+     * @param \App\Models\Cake $cake
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Coffee $coffee) {
+    public function destroy(Cake $cake) {
 
         $user_logged = auth()->user();
         $user_role=UserRole::find($user_logged->user_role_id);
@@ -142,7 +142,7 @@ class CoffeeController extends Controller {
             return response()->json(['You have not any permissions to do that!']);
         }
 
-        $coffee->delete();
-        return response()->json(['Coffee deleted.']);
+        $cake->delete();
+        return response()->json(['Cake deleted.']);
     }
 }

@@ -6,7 +6,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/coffee-post
+    uri: api/cake-post
     metadata:
       title: 'Display a listing of all CoffePosts.'
       description: ''
@@ -33,7 +33,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/coffee-post/{id}'
+    uri: 'api/cake-post/{id}'
     metadata:
       title: 'Display the specified CoffePost.'
       description: ''
@@ -45,7 +45,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the coffee post.'
+        description: 'The ID of the cake post.'
         required: true
         example: 1
         type: integer
@@ -67,7 +67,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/coffee-post
+    uri: api/cake-post
     metadata:
       title: 'Store a newly created CoffePost in storage.'
       description: ''
@@ -113,7 +113,7 @@ endpoints:
     httpMethods:
       - PUT
       - PATCH
-    uri: 'api/coffee-post/{id}'
+    uri: 'api/cake-post/{id}'
     metadata:
       title: 'Update the specified post in storage.'
       description: ''
@@ -125,7 +125,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the coffee post.'
+        description: 'The ID of the cake post.'
         required: true
         example: 1
         type: integer
@@ -165,7 +165,7 @@ endpoints:
   -
     httpMethods:
       - DELETE
-    uri: 'api/coffee-post/{id}'
+    uri: 'api/cake-post/{id}'
     metadata:
       title: 'Remove the specified post from storage.'
       description: ''
@@ -177,7 +177,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the coffee post.'
+        description: 'The ID of the cake post.'
         required: true
         example: 1
         type: integer

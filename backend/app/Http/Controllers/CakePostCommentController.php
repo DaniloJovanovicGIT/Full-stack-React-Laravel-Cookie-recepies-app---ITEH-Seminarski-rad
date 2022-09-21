@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CoffeePostCommentCollection;
-use App\Http\Resources\CoffeePostCommentResource;
-use App\Models\CoffeePost;
-use App\Models\CoffeePostComment;
+use App\Http\Resources\CakePostCommentCollection;
+use App\Http\Resources\CakePostCommentResource;
+use App\Models\CakePost;
+use App\Models\CakePostComment;
 use App\Models\UserRole;
-use App\Rules\CoffeePostExsists;
+use App\Rules\CakePostExists;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CoffeePostCommentController extends Controller {
+class CakePostCommentController extends Controller {
     /**
      * @group Comments
      * Display a listing of all comments.
@@ -19,7 +19,7 @@ class CoffeePostCommentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        return new CoffeePostCommentCollection(CoffeePostComment::all());
+        return new CakePostCommentCollection(CakePostComment::all());
     }
 
     /**
@@ -43,7 +43,7 @@ class CoffeePostCommentController extends Controller {
 
         $validator = Validator::make($request->all(), [
             'comment_content' => 'required|string|max:255',
-            'post_id' => ['required', 'integer', new CoffeePostExsists()]
+            'post_id' => ['required', 'integer', new cakePostExists()]
         ]);
 
         if ($validator->fails()) {
@@ -52,33 +52,33 @@ class CoffeePostCommentController extends Controller {
 
         $userID = auth()->user()->id;
 
-        $coffeePostComment = CoffeePostComment::create([
+        $cakePostComment = CakePostComment::create([
             'comment_content' => $request->comment_content,
             'post_id' => $request->post_id,
             'user_id' => $user_id
         ]);
 
-        return response()->json(['success'=>true,'message' => 'Coffee post comment post saved.', 'comment' => new CoffeePostCommentResource($coffeePostComment)]);
+        return response()->json(['success'=>true,'message' => 'Cake post comment post saved.', 'comment' => new CakePostCommentResource($cakePostComment)]);
     }
 
     /**
      * @group Comments
      * Display the specified resource.
      *
-     * @param \App\Models\CoffeePostComment $coffeePostComment
+     * @param \App\Models\CakePostComment $cakePostComment
      * @return \Illuminate\Http\Response
      */
-    public function show(CoffeePostComment $coffeePostComment) {
-        return new CoffeePostCommentResource($coffeePostComment);
+    public function show(CakePostComment $cakePostComment) {
+        return new CakePostCommentResource($cakePostComment);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\CoffeePostComment $coffeePostComment
+     * @param \App\Models\CakePostComment $cakePostComment
      * @return \Illuminate\Http\Response
      */
-    public function edit(CoffeePostComment $coffeePostComment) {
+    public function edit(CakePostComment $cakePostComment) {
         //
     }
 
@@ -87,10 +87,10 @@ class CoffeePostCommentController extends Controller {
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\CoffeePostComment $coffeePostComment
+     * @param \App\Models\CakePostComment $cakePostComment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CoffeePostComment $coffeePostComment) {
+    public function update(Request $request, CakePostComment $cakePostComment) {
         //
     }
 
@@ -98,18 +98,18 @@ class CoffeePostCommentController extends Controller {
      * @group Comments
      * Remove the specified comment from storage.
      *
-     * @param \App\Models\CoffeePostComment $coffeePostComment
+     * @param \App\Models\CakePostComment $cakePostComment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CoffeePostComment $coffeePostComment) {
+    public function destroy(CakePostComment $cakePostComment) {
         $user = auth()->user();
         $user_role = UserRole::find($user->user_role_id);
 
-        if ($coffeePostComment->user_id != $user->id && !$user_role->role_capability && $user_role->role_slug !== 'admin') {
+        if ($cakePostComment->user_id != $user->id && !$user_role->role_capability && $user_role->role_slug !== 'admin') {
             return response()->json(['You have not any permissions to do that!']);
         }
 
-        $coffeePostComment->delete();
-        return response()->json(['Coffee post comment deleted.']);
+        $cakePostComment->delete();
+        return response()->json(['Cake post comment deleted.']);
     }
 }

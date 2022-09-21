@@ -6,7 +6,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/coffee-post-comment
+    uri: api/cake-post-comment
     metadata:
       title: 'Display a listing of all comments.'
       description: ''
@@ -33,7 +33,7 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/coffee-post-comment/{id}'
+    uri: 'api/cake-post-comment/{id}'
     metadata:
       title: 'Display the specified resource.'
       description: ''
@@ -45,7 +45,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the coffee post comment.'
+        description: 'The ID of the cake post comment.'
         required: true
         example: 1
         type: integer
@@ -67,7 +67,7 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/coffee-post-comment
+    uri: api/cake-post-comment
     metadata:
       title: 'Store a newly created comment in storage.'
       description: ''
@@ -98,7 +98,7 @@ endpoints:
   -
     httpMethods:
       - DELETE
-    uri: 'api/coffee-post-comment/{id}'
+    uri: 'api/cake-post-comment/{id}'
     metadata:
       title: 'Remove the specified comment from storage.'
       description: ''
@@ -110,7 +110,7 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the coffee post comment.'
+        description: 'The ID of the cake post comment.'
         required: true
         example: 1
         type: integer

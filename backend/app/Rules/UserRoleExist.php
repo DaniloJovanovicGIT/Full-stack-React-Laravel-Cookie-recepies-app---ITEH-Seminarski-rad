@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
-use App\Models\Category;
+use App\Models\UserRole;
 use Illuminate\Contracts\Validation\Rule;
 
-class CategoryExsists implements Rule
+class UserRoleExist implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,7 +26,8 @@ class CategoryExsists implements Rule
      */
     public function passes($attribute, $value)
     {
-        return Category::find($value)!==null;
+        $userRole = UserRole::find(intval($value));
+        return $userRole!=null;
     }
 
     /**
@@ -36,6 +37,6 @@ class CategoryExsists implements Rule
      */
     public function message()
     {
-        return 'Category does not exsist.';
+        return 'User role doesnt exist!';
     }
 }

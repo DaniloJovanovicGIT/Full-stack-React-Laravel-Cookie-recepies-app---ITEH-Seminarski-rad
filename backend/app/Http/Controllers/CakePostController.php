@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CoffeePostCollection;
-use App\Http\Resources\CoffeePostCommentCollection;
-use App\Http\Resources\CoffeePostResource;
-use App\Models\CoffeePost;
-use App\Models\CoffeePostComment;
+use App\Http\Resources\CakePostCollection;
+use App\Http\Resources\CakePostCommentCollection;
+use App\Http\Resources\CakePostResource;
+use App\Models\CakePost;
+use App\Models\CakePostComment;
 use App\Models\UserRole;
-use App\Rules\CategoryExsists;
-use App\Rules\CoffeeExsists;
-use App\Rules\CoffeePostExsists;
+use App\Rules\CategoryExists;
+use App\Rules\CakeExists;
+use App\Rules\CakePostExists;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CoffeePostController extends Controller {
+class CakePostController extends Controller {
     /**
      * @group Posts
      * Display a listing of all CoffePosts.
@@ -22,8 +22,8 @@ class CoffeePostController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $coffee_posts = CoffeePost::all();
-        return new CoffeePostCollection($coffee_posts);
+        $cake_posts = CakePost::all();
+        return new CakePostCollection($cake_posts);
     }
 
     /**
@@ -46,8 +46,8 @@ class CoffeePostController extends Controller {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'post_content' => 'required|string',
-            'category_id' => ['required', 'integer', new CategoryExsists()],
-            'coffee_id' => ['integer','nullable', new CoffeeExsists()]
+            'category_id' => ['required', 'integer', new CategoryExists()],
+            'cake_id' => ['integer','nullable', new CakeExists()]
         ]);
 
         if ($validator->fails()) {
@@ -56,36 +56,36 @@ class CoffeePostController extends Controller {
 
         $userID = auth()->user()->id;
 
-        $coffeePost = CoffeePost::create([
+        $cakePost = CakePost::create([
             'title' => $request->title,
             'post_content' => $request->post_content,
             'category_id' => $request->category_id,
-            'coffee_id' => $request->coffee_id,
+            'cake_id' => $request->cake_id,
             'user_id' => $userID
         ]);
 
-        return response()->json(['success' => true, 'message' => 'Coffee post saved.', new CoffeePostResource($coffeePost)]);
+        return response()->json(['success' => true, 'message' => 'Cake post saved.', new CakePostResource($cakePost)]);
     }
 
     /**
      * @group Posts
      * Display the specified CoffePost.
      *
-     * @param \App\Models\CoffeePost $coffeePost
+     * @param \App\Models\CakePost $cakePost
      * @return \Illuminate\Http\Response
      */
-    public function show(CoffeePost $coffeePost) {
-        $comments = CoffeePostComment::all()->where('post_id', '=', $coffeePost->id);
-        return ['post' => new CoffeePostResource($coffeePost), 'comments' => new CoffeePostCommentCollection($comments)];
+    public function show(CakePost $cakePost) {
+        $comments = CakePostComment::all()->where('post_id', '=', $cakePost->id);
+        return ['post' => new CakePostResource($cakePost), 'comments' => new CakePostCommentCollection($comments)];
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\CoffeePost $coffeePost
+     * @param \App\Models\CakePost $cakePost
      * @return \Illuminate\Http\Response
      */
-    public function edit(CoffeePost $coffeePost) {
+    public function edit(CakePost $cakePost) {
         //
     }
 
@@ -94,60 +94,60 @@ class CoffeePostController extends Controller {
      * Update the specified post in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\CoffeePost $coffeePost
+     * @param \App\Models\CakePost $cakePost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CoffeePost $coffeePost) {
+    public function update(Request $request, CakePost $cakePost) {
         $user = auth()->user();
         $user_role = UserRole::find($user->user_role_id);
 
-        if ($coffeePost->user_id != $user->id && !$user_role->role_capability && $user_role->role_slug !== 'admin') {
+        if ($cakePost->user_id != $user->id && !$user_role->role_capability && $user_role->role_slug !== 'admin') {
             return response()->json(['You have not any permissions to do that!']);
         }
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'post_content' => 'required|string',
-            'category_id' => ['required', new CategoryExsists()],
-            'coffee_id' => ['integer','nullable', new CoffeeExsists()]
+            'category_id' => ['required', new CategoryExists()],
+            'cake_id' => ['integer','nullable', new CakeExists()]
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error'=>'ERROR: Post not updated!','message'=>$validator->errors()]);
         }
 
-        $coffeePost->title = $request->title;
-        $coffeePost->post_content = $request->post_content;
-        $coffeePost->category_id = $request->category_id;
-        $coffeePost->coffee_id = $request->coffee_id;
-        $coffeePost->save();
+        $cakePost->title = $request->title;
+        $cakePost->post_content = $request->post_content;
+        $cakePost->category_id = $request->category_id;
+        $cakePost->cake_id = $request->cake_id;
+        $cakePost->save();
 
-        return response()->json(['success' => true, 'message' => 'Coffee post updated.', new CoffeePostResource($coffeePost)]);
+        return response()->json(['success' => true, 'message' => 'Cake post updated.', new CakePostResource($cakePost)]);
     }
 
     /**
      * @group Posts
      * Remove the specified post from storage.
      *
-     * @param \App\Models\CoffeePost $coffeePost
+     * @param \App\Models\CakePost $cakePost
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CoffeePost $coffeePost) {
+    public function destroy(CakePost $cakePost) {
         $user = auth()->user();
         $user_role = UserRole::find($user->user_role_id);
 
-        if ($coffeePost->user_id != $user->id && !$user_role->role_capability && $user_role->role_slug !== 'admin') {
+        if ($cakePost->user_id != $user->id && !$user_role->role_capability && $user_role->role_slug !== 'admin') {
             return response()->json(['You have not any permissions to do that!']);
         }
 
-        $coffeePost->delete();
-        return response()->json(['Coffee post deleted.']);
+        $cakePost->delete();
+        return response()->json(['Cake post deleted.']);
 
     }
 
     public function show_newest() {
 
-        $posts = CoffeePost::all()->take(5);
-        return new CoffeePostCollection($posts);
+        $posts = CakePost::all()->take(5);
+        return new CakePostCollection($posts);
     }
 }

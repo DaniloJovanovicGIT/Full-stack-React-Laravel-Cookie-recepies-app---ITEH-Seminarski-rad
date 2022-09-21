@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
-use App\Models\CoffeePost;
+use App\Models\Category;
 use Illuminate\Contracts\Validation\Rule;
 
-class CoffeePostExsists implements Rule
+class CategoryExists implements Rule
 {
     /**
      * Create a new rule instance.
@@ -26,7 +26,7 @@ class CoffeePostExsists implements Rule
      */
     public function passes($attribute, $value)
     {
-        return CoffeePost::find($value)!==null;
+        return Category::find($value)!==null;
     }
 
     /**
@@ -36,6 +36,6 @@ class CoffeePostExsists implements Rule
      */
     public function message()
     {
-        return 'Coffee post does not exsist.';
+        return 'Category does not exist.';
     }
 }

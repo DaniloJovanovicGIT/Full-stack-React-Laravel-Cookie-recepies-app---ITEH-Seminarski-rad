@@ -14,7 +14,7 @@ class StatisticsReport {
         $excel->getProperties()
             ->setCreator("Admin")
             ->setLastModifiedBy("Admin")
-            ->setTitle("Izvestaj o coffee blogu")
+            ->setTitle("Izvestaj o cake blogu")
             ->setSubject("Izvestaj")
             ->setCategory("izvestaj");
 
@@ -35,8 +35,8 @@ class StatisticsReport {
         $sheet->setCellValue('A5', 'Ukupan broj komentara: ');
         $sheet->setCellValue('B5', $podaci['brojKomentara']);
 
-        $sheet->setCellValue('A7', 'Ukupan broj kafa: ');
-        $sheet->setCellValue('B7', $podaci['brojKafa']);
+        $sheet->setCellValue('A7', 'Ukupan broj torti: ');
+        $sheet->setCellValue('B7', $podaci['brojTorti']);
 
         $sheet->setCellValue('A9', 'Ukupan broj korinsika: ');
         $sheet->setCellValue('B9', $podaci['brojKorisnika']);

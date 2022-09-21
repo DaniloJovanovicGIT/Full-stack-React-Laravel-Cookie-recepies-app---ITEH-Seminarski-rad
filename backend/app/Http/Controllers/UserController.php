@@ -6,7 +6,7 @@ use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Models\UserRole;
-use App\Rules\UserRoleExsist;
+use App\Rules\UserRoleExist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -95,7 +95,7 @@ class UserController extends Controller {
             'lastname' => 'required|string|max:255',
             'email' => 'required|string|max:255|email|unique:users,email,' . $user->id,
             'password' => 'string|min:5',
-            'user_role_id' => [new UserRoleExsist()],
+            'user_role_id' => [new UserRoleExist()],
         ]);
 
         if ($validator->fails()) {

@@ -14,7 +14,7 @@ return [
     /*
      * A short description of your API. Will be included in the docs webpage, Postman collection and OpenAPI spec.
      */
-    'description' => 'Coffee blog prestavlja blog koji je posvecen ljubiteljima kafe. Ovde je moguce procitati i objavljivati clanke vezane za kafu.',
+    'description' => 'Cake blog prestavlja blog koji je posvecen ljubiteljima kafe. Ovde je moguce procitati i objavljivati clanke vezane za kafu.',
 
     /*
      * The base URL displayed in the docs. If this is empty, Scribe will use the value of config('app.url').
@@ -254,7 +254,7 @@ return [
      * Text to place in the "Introduction" section, right after the `description`. Markdown and HTML are supported.
      */
     'intro_text' => <<<INTRO
-Ovde se nalaze svi podaci koji su potrebni za pravilno koriscenje CoffeeBlog API
+Ovde se nalaze svi podaci koji su potrebni za pravilno koriscenje CakeBlog API
 
 INTRO
     ,
