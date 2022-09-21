@@ -11,65 +11,58 @@ const Faq = () => {
         <div className="accordion">
           <div className="accordion-item" id="q1">
             <a className="accordion-link" href="#q1">
-              Da li Vase kafe sadrze gluten?
+              Da li se torte mogu poruciti kod Vas?
             </a>
             <div className="answer">
-              <p> Sve nase kafe i ukusi su gluten free.</p>
+              <p> Ne, mi delimo informacije i recepte, dok pravljenje torte vrsite Vi.</p>
             </div>
           </div>
           <div className="accordion-item" id="q2">
             <a className="accordion-link" href="#q2">
-              Da li koristite vestacke zasladjivace?
+              Da li postoje veganske torte?
               <i className="icon ion-md-add"/>
               <i className="icon ion-md-remove"/>
             </a>
             <div className="answer">
               <p>
-                Da, koristimo ih. Nase kafe sa ukusima sadrze prirodne i
-                vestacke zasladjivace.
+                Da, postoje. Mozete naci recepte za iste na pocetnoj strani u odeljku "pronadji recept"
               </p>
             </div>
           </div>
           <div className="accordion-item" id="q3">
             <a className="accordion-link" href="#q3">
-              Kako napraviti najbolju kafu?
+              Koja je vasa misija?
               <i className="icon ion-md-add"/>
               <i className="icon ion-md-remove"/>
             </a>
             <div className="answer">
               <p>
                 {" "}
-                Prvo i najvaznije je upotreba svezih zrna kafe. Potrebno je i
-                samleti zrna na pravi nacin.
-              </p>
+                Nasa misija je ujedinjenje svih ljubitelja pravljenja kolaca i torti na jednom mestu, i omogucavanje razmene misljenja i recepata.
+                </p>
             </div>
           </div>
           <div className="accordion-item" id="q4">
             <a className="accordion-link" href="#q4">
-              Koliko imakofeina u jednoj solji kafe?
+              Da li ste ikad razmisljali da krenete u teretanu umesto pravljenja CAKE SHOP bloga.
               <i className="icon ion-md-add"/>
               <i className="icon ion-md-remove"/>
             </a>
             <div className="answer">
               <p>
-                200ml kafe u proseku sadrzi 100 do 150 miligrama kofeina, a to
-                zavisi od tipa kafe i nacina mlevenja.{" "}
+                Da ali smo bili gladni pri pravljenju seminarskog rada{" "}
               </p>
             </div>
           </div>
           <div className="accordion-item" id="q5">
             <a className="accordion-link" href="#q5">
-              Da li je bolje kupiti kafu u zrnu ili samlevenu?
+              Da li je bolje kupiti tortu ili je napraviti je kod kuce?
               <i className="icon ion-md-add"/>
               <i className="icon ion-md-remove"/>
             </a>
             <div className="answer">
               <p>
-                U toku procesa mlevenja kafe,ona gubi ukus i aromu. Svrha
-                mlevenja zrna jeste kreiranje vece povrsine koja ce otpustiti
-                ukus i ulja u vodu. Kada je kafa izlozena vazduhu, ona pocinje
-                da gubi ukus. Ako kupite kafu u zrnu, preporucujemo da se
-                samelje u roku od 2 nedelje.
+                U toku procesa pravljenja torte Vi kupujete sve namernice i sve sami sa svojih 10 prstiju, tako da je najbolje da prenesete svoju ljubav u tortu.
               </p>
             </div>
           </div>

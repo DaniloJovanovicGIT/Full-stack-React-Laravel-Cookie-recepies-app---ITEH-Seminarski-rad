@@ -128,7 +128,7 @@ const AddPost = () => {
                         </select>
                     </div>
                     <div>
-                        <label id="addPostLabel">Izaberi kafu   </label>
+                        <label id="addPostLabel">Izaberi kolac   </label>
                         <select name='coffee_id' onChange={handleInput}
                                 value={postInput == null || postInput.coffee_id == null ? '' : postInput.coffee_id.id}>
                             <option value>Nema</option>

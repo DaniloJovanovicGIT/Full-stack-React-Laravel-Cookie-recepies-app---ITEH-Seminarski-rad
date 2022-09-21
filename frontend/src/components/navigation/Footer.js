@@ -20,7 +20,7 @@ const Footer = () => {
       <div className="containerFooter">
         <div className="rowFooter">
           <div className="footer-col">
-            <h4>zajednica ljubitelja kafe</h4>
+            <h4>CAKE SHOP Blog</h4>
             <ul>
               <li>
                 <Link to="/home">pocetna</Link>

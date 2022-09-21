@@ -1,5 +1,8 @@
+.h-100{
+  background-color: #440c5a;
+}
 #logPage {
-  background-color: #17181b;
+  background-color: #b171c1;
   background-size: cover;
 }
 
@@ -14,7 +17,7 @@
 }
 
 #btnLogin {
-  background-color: #838282 !important;
+  background-color: #bd3dc9 !important;
   color: black;
   padding: 8px 20px;
   margin-bottom: 1em;

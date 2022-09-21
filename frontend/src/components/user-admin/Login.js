@@ -65,7 +65,7 @@ const Login = () => {
                                         <div className="card-body p-md-5 mx-md-4">
                                             <div className="text-center">
                                                 <h4 className="mt-1 mb-5 pb-1 " id="title">
-                                                    Dobrodosli u Coffee blog!
+                                                    Dobrodosli u CAKE SHOP Blog!
                                                 </h4>
                                             </div>
 

@@ -33,7 +33,7 @@ export default function Sidebar() {
                     alt=""
                 />
                 <p>
-                    Zajednica ljubitelja kafe je mesto na kome možete pronaći novosti i zanimljivosti o kafi.
+                    CAKE SHOP je blog na kome možete pronaći novosti i zanimljivosti o tortama i kolacima.
                     Korisnici mogu da dele svoja iskustva i postavljaju svoje članke.
                 </p>
             </div>
