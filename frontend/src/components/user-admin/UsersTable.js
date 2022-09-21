@@ -45,8 +45,8 @@ const UsersTable = () => {
 
     return (
         <>
-            <div className="coffeeTable">
-                <div className="coffeeTableHeader">
+            <div className="cakeTable">
+                <div className="cakeTableHeader">
                     <h2>Korisnici</h2>
                     <Link className="btnAddCoffee" to='/user'>
                         Dodaj novog korisnika

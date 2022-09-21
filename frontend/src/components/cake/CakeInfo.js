@@ -4,11 +4,11 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 
-const CoffeeInfo = () => {
+const CakeInfo = () => {
     function sacuvaj(e) {
         e.preventDefault()
         if (id.id !== null && id.id !== undefined) {
-            axios.put('http://localhost:8000/api/coffee/' + id.id, coffee, {
+            axios.put('http://localhost:8000/api/cake/' + id.id, cake, {
                 headers: {
                     'Authorization': 'Bearer ' + window.sessionStorage.getItem('auth_token')
                 }
@@ -17,7 +17,7 @@ const CoffeeInfo = () => {
                     console.log(res)
                     if (res.data.success) {
                         alert(res.data.message)
-                        window.location.href = '/coffees'
+                        window.location.href = '/cakes'
                     } else {
                         alert(res.data.error)
                     }
@@ -25,7 +25,7 @@ const CoffeeInfo = () => {
                 console.log(e)
             })
         } else {
-            axios.post('http://localhost:8000/api/coffee', coffee, {
+            axios.post('http://localhost:8000/api/cake', cake, {
                 headers: {
                     'Authorization': 'Bearer ' + window.sessionStorage.getItem('auth_token')
                 }
@@ -34,7 +34,7 @@ const CoffeeInfo = () => {
                     console.log(res)
                     if (res.data.success) {
                         alert(res.data.message)
-                        window.location.href = '/coffees'
+                        window.location.href = '/cakes'
                     } else {
                         alert(res.data.error)
                     }
@@ -44,23 +44,23 @@ const CoffeeInfo = () => {
         }
     }
 
-    const [coffee,setCoffee]=useState(null);
+    const [cake,setCake]=useState(null);
     const handleInput = (e) => {
-        console.log(coffee)
+        console.log(cake)
         e.persist();
-        setCoffee({
-            ...coffee,
+        setCake({
+            ...cake,
             [e.target.name]: e.target.value,
         });
     };
 
     let id = useParams();
     useEffect(() => {
-        if (coffee === null && id.id !== undefined) {
-            axios.get('http://localhost:8000/api/coffee/' + id.id)
+        if (cake === null && id.id !== undefined) {
+            axios.get('http://localhost:8000/api/cake/' + id.id)
                 .then((res) => {
                     console.log(res.data)
-                    setCoffee(res.data.coffee)
+                    setCake(res.data.cake)
                 }).catch((e) => {
             })
         }
@@ -68,33 +68,33 @@ const CoffeeInfo = () => {
 
     return (
         <>
-            <div className="coffee">
-                <h2>Kafa</h2>
+            <div className="cake">
+                <h2>Torta</h2>
                 <div className="row">
                     <div className="column">
                         <label>Naziv</label>
-                        <input type="text" name='coffee_name' onChange={handleInput}
-                               value={coffee == null ? '' : coffee.coffee_name}/>
+                        <input type="text" name='cake_name' onChange={handleInput}
+                               value={cake == null ? '' : cake.cake_name}/>
 
                         <label>Vrsta</label>
-                        <input type="text" name="coffee_sort" onChange={handleInput}
-                               value={coffee == null ? '' : coffee.coffee_sort}/>
+                        <input type="text" name="cake_sort" onChange={handleInput}
+                               value={cake == null ? '' : cake.cake_sort}/>
 
                          </div>
                     <div className="column">
                     <label>Kratak opis</label>
                         <br></br>
                         <textarea name="description" onChange={handleInput}
-                               value={coffee == null ? '' : coffee.description}/>
+                               value={cake == null ? '' : cake.description}/>
                    <br></br>
                         <label>Poreklo</label>
                         <input type="text" name="country_origin" onChange={handleInput}
-                               value={coffee == null ? '' : coffee.country_origin}/>
+                               value={cake == null ? '' : cake.country_origin}/>
                     </div>
                 </div>
                 <div className="btnInfo" id="changeUserInfo">
                 <Button
-                    className="btnUpdateCoffeeInfo"
+                    className="btnUpdateCakeInfo"
                     buttonStyle="color"
                     buttonSize="small"
                     text="Sacuvaj"
@@ -107,4 +107,4 @@ const CoffeeInfo = () => {
         </>
     );
 };
-export default CoffeeInfo;
+export default CakeInfo;

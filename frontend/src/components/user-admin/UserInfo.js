@@ -101,7 +101,7 @@ const UserInfo = () => {
     return (
         <>
            
-            <div className="coffee">
+            <div className="cake">
             <h3>Izmena profila</h3>
                 <div className="row">
                     <div className="column">

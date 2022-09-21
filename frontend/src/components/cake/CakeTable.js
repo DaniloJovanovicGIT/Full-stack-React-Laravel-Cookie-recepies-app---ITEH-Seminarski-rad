@@ -3,9 +3,9 @@ import "../../styles/Entity.css";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-const CoffeeTable = () => {
-    function deleteCoffee(id) {
-        let url = 'http://localhost:8000/api/coffee/' + id;
+const CakeTable = () => {
+    function deleteCake(id) {
+        let url = 'http://localhost:8000/api/cake/' + id;
         let token = 'Bearer ' + window.sessionStorage.getItem('auth_token');
         axios.delete(url, {
             headers: {
@@ -21,24 +21,24 @@ const CoffeeTable = () => {
     }
 
 
-    const [coffees,setCoffeess] = useState(null);
+    const [cakes,setCakess] = useState(null);
     useEffect(() => {
         console.log("All posts"+123)
-        if (coffees === null) {
-            axios.get('http://localhost:8000/api/coffee')
+        if (cakes === null) {
+            axios.get('http://localhost:8000/api/cake')
                 .then((res) => {
-                    setCoffeess(res.data.coffees)
+                    setCakess(res.data.cakes)
                 }).catch((e) => {
             })
         }
-    }, [coffees])
+    }, [cakes])
     return (
         <>
-            <div className="coffeeTable">
-                <div className="coffeeTableHeader">
-                    <h2>Kafe</h2>
-                    <Link className="btnAddCoffee" to='/coffee'>
-                        Dodaj novu kafu
+            <div className="cakeTable">
+                <div className="cakeTableHeader">
+                    <h2>Torte</h2>
+                    <Link className="btnAddCake" to='/cake'>
+                        Dodaj novu tortu
                     </Link>
                 </div>
 
@@ -57,24 +57,24 @@ const CoffeeTable = () => {
                     </tr>
                     </thead>
                     <tbody id="tableBody">
-                    {coffees == null ? <></> : coffees.map((k) => (
+                    {cakes == null ? <></> : cakes.map((k) => (
                         <tr key={k.id}>
-                            <td>{k.coffee_name} </td>
-                            <td>{k.coffee_sort}</td>
-                            <td>{k.country_origin}</td>
+                            <td>{k.cake_name} </td>
+                            <td>{k.cake_sort}</td>
+                            <td>{k.vegan}</td>
                             <td>{k.description}</td>
                             <td>{k.user_id.name}</td>
                             <td>{new Date(k.created_at).toLocaleDateString()}</td>
                             <td>{new Date(k.updated_at).toLocaleDateString()}</td>
                             <td>
-                                <button className="btnDeleteCoffee" onClick={()=>deleteCoffee(k.id)}>
+                                <button className="btnDeleteCake" onClick={()=>deleteCake(k.id)}>
                                     Obrisi
                                 </button>
                             </td>
                             <td>
                                 <Link
-                                    className="btnUpdateCoffee"
-                                    to={'/coffee/'+k.id}
+                                    className="btnUpdateCake"
+                                    to={'/cake/'+k.id}
                                 >Izmeni</Link>
                             </td>
                         </tr>
@@ -86,4 +86,4 @@ const CoffeeTable = () => {
         </>
     );
 };
-export default CoffeeTable;
+export default CakeTable;
