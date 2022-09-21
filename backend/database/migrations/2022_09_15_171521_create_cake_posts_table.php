@@ -11,12 +11,12 @@ return new class extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('coffee_posts', function (Blueprint $table) {
+        Schema::create('cake_posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('post_content');
             $table->foreignId('category_id');
-            $table->foreignId('coffee_id')->nullable(true);
+            $table->foreignId('cake_id')->nullable(true);
             $table->foreignId('user_id');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('coffee_posts');
+        Schema::dropIfExists('cake_posts');
     }
 };
